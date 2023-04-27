@@ -1,34 +1,50 @@
-package src.main.java;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+
+// package src.main.java;
 
 public class Block {
     
+    int xCoordinate, yCoordinate;
+    int size;
+    
+    boolean isEmpty;
     boolean isWall;
     boolean isTile;
     boolean hasBall;
     boolean hasBox;
     boolean hasPlayer;
 
-    public Block(Boolean wall) {
-        if (wall == true) {
-            setWall();
-        } else {
-            isWall = false;
-            isTile = true;
-        }
+    public BufferedImage image;
+
+    public Block(int x, int y, Boolean wall) {
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.size = 32;
 
         this.hasBall = false;
         this.hasBox = false;
         this.hasPlayer = false;
-    }
 
+        if (wall == true) {
+            setWall();
+        } else {
+            this.isEmpty = true;
+            this.isWall = false;
+            this.isTile = false;
+        }
+    }
 
     public void setWall() {
         isWall = true;
         isTile = false;
     }
 
-    public static void main(String[] args) {
-        Block block1 = new Block(false);
-        Block block2 = new Block(true);
+    public int getImgSize() {
+        return this.size;
     }
 }
