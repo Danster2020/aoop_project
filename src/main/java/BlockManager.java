@@ -22,7 +22,6 @@ public class BlockManager extends JComponent {
         this.blankImg = loadImg(assetFolder + "blank.png");
         this.blankMarkedImg = loadImg(assetFolder + "blankmarked.png");
         this.wallImg = loadImg(assetFolder + "wall.png");
-
     }
 
     public BufferedImage loadImg(String path) {

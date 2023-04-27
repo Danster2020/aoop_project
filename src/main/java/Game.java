@@ -7,11 +7,12 @@ public class Game {
 
     JFrame jFrame;
     Block[][] blockArray;
-    private final int WITH, HEIGHT;
+    private final int WIDTH, HEIGHT;
+    KeyHandler kH = new KeyHandler();
 
     public Game() {
         jFrame = new JFrame("Sokoban");
-        WITH = 960;
+        WIDTH = 960;
         HEIGHT = 640;
 
         blockArray = new Block[10][10];
@@ -22,13 +23,15 @@ public class Game {
         //         jFrame.add(blockArray[row][col]);
         //     }
         // }
+
+        jFrame.addKeyListener(kH);
         
         BlockManager bM = new BlockManager(this);
         jFrame.add(bM);
 
 
         jFrame.pack();
-        jFrame.setSize(WITH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
+        jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
 
@@ -36,7 +39,7 @@ public class Game {
     }
 
     public int getWidth() {
-        return this.WITH;
+        return this.WIDTH;
     }
 
     public int getHeight() {
