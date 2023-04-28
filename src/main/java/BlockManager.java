@@ -42,13 +42,13 @@ public class BlockManager extends JComponent {
 
         for (int row = 0; row < game.getHeight() / blockSize; row++) { // FIXME height not entirely lined up
             for (int col = 0; col < game.getWidth() / blockSize; col++) {
-                newBlock(draw, col * blockSize, blockSize * row);
+                newBlock(draw, col * blockSize, row * blockSize, blankImg);
             }
         }
-
+        newBlock(draw, 29 * blockSize, 17 * blockSize, wallImg);
     }
 
-    public void newBlock(Graphics2D g2, int x, int y) {
-        g2.drawImage(blankImg, x, y, blockSize, blockSize, null);
+    public void newBlock(Graphics2D g2, int x, int y, BufferedImage image) {
+        g2.drawImage(image, x, y, blockSize, blockSize, null);
     }
 }
