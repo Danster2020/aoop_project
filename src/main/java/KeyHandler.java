@@ -1,9 +1,11 @@
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.KeyEvent;
 
-public class KeyHandler implements KeyListener{
+public class KeyHandler implements KeyListener, MouseListener{
 
-    public boolean northPressed, southPressed, westPressed, eastPressed;
+    public boolean northPressed, southPressed, westPressed, eastPressed, buttonPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -46,6 +48,32 @@ public class KeyHandler implements KeyListener{
             eastPressed = false;
         }
         System.out.println("you released " + e.getKeyChar());
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //System.out.println("You clicked the mouse");
+        System.out.println("x: " + e.getXOnScreen() + " y: " + e.getYOnScreen());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        //Enters Frame Window
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        //Exist Frame Window
     }
     
 }

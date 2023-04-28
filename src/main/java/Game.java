@@ -25,6 +25,7 @@ public class Game {
         // }
 
         jFrame.addKeyListener(kH);
+        jFrame.addMouseListener(kH);
         
         BlockManager bM = new BlockManager(this);
         jFrame.add(bM);

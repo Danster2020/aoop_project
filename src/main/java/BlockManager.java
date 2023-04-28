@@ -49,6 +49,6 @@ public class BlockManager extends JComponent {
     }
 
     public void newBlock(Graphics2D g2, int x, int y) {
-        g2.drawImage(wallImg, x, y, blockSize, blockSize, null);
+        g2.drawImage(blankImg, x, y, blockSize, blockSize, null);
     }
 }
