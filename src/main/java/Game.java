@@ -22,7 +22,7 @@ public class Game {
 
         for (int row = 0; row < blockGrid[0].length; row++) {
             for (int col = 0; col < blockGrid.length; col++) {
-                blockGrid[col][row] = new Block(col, row, false);
+                blockGrid[col][row] = new Block(col, row);
             }
         }
 
@@ -64,10 +64,8 @@ public class Game {
             System.out.println();
             for (Block block : row) {
                 String string = "";
-                if (block.isEmpty()) {
+                if (block.isTile()) {
                     string = "-";
-                } else if (block.isTile()) {
-                    string = "T";
                 } else if (block.isWall()) {
                     string = "W";
                 }

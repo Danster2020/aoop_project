@@ -22,7 +22,7 @@ public class MovableObject{
     }
 
     public void blockAhead(){
-        if()
+        // TODO
     }
 
 }

@@ -12,36 +12,26 @@ public class Block {
     int xCoordinate, yCoordinate;
     int size;
     
-    boolean isEmpty;
     boolean isWall;
     boolean isTile;
-    boolean hasBall;
+    boolean hasTarget;
     boolean hasBox;
     boolean hasPlayer;
 
     public BufferedImage image;
 
-    public Block(int col, int row, Boolean wall) {
+    public Block(int col, int row) {
         this.xCoordinate = col;
         this.yCoordinate = row;
         this.size = 32;
 
-        this.hasBall = false;
+        this.isWall = false;
+        this.isTile = true;
+        this.hasTarget = false;
         this.hasBox = false;
         this.hasPlayer = false;
-
-        if (wall == true) {
-            setWall();
-        } else {
-            this.isEmpty = true;
-            this.isWall = false;
-            this.isTile = false;
-        }
     }
 
-    public boolean isEmpty() {
-        return isEmpty;
-    }
 
     public boolean isWall() {
         return isWall;
@@ -51,8 +41,8 @@ public class Block {
         return isTile;
     }
 
-    public boolean HasBall() {
-        return hasBall;
+    public boolean hasTarget() {
+        return hasTarget;
     }
 
     public boolean hasBox() {
@@ -66,7 +56,11 @@ public class Block {
     public void setWall() {
         isWall = true;
         isTile = false;
-        isEmpty = false;
+    }
+
+    public void setTile() {
+        isWall = false;
+        isTile = true;
     }
 
     public int getImgSize() {
