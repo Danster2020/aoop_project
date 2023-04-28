@@ -7,6 +7,7 @@ public class Game {
 
     JFrame jFrame;
     Block[][] blockGrid;
+    Level currentLevel;
     private final int WIDTH, HEIGHT;
     KeyHandler kH = new KeyHandler();
 
@@ -18,18 +19,20 @@ public class Game {
         jFrame = new JFrame("Sokoban");
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
 
-        blockGrid = new Block[30][20];
+        // blockGrid = new Block[30][20];
+        Level level1 = new Level(new Block[30][20], "level1");
+        this.currentLevel = level1;
 
-        for (int row = 0; row < blockGrid[0].length; row++) {
-            for (int col = 0; col < blockGrid.length; col++) {
-                blockGrid[col][row] = new Block(col, row);
+        for (int row = 0; row < level1.getGrid()[0].length; row++) {
+            for (int col = 0; col < level1.getGrid().length; col++) {
+                level1.setBlock(col, row, new Block());
             }
         }
 
-        blockGrid[29][19].setWall();
+        level1.getBlock(0, 0).setWall();
+        level1.getBlock(29, 19).setWall();
 
-        printBlocks(blockGrid);
-
+        level1.printBlocks();
 
         BlockManager bM = new BlockManager(this);
 
@@ -42,12 +45,9 @@ public class Game {
         jFrame.addKeyListener(kH);
         jFrame.add(mouseLabel);
         jFrame.add(bM);
-
         
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
-
-
     }
 
     public int getWidth() {
@@ -58,29 +58,8 @@ public class Game {
         return this.HEIGHT;
     }
 
-    public void printBlocks(Block[][] blockGrid) {
-        System.out.print("[");
-        for (Block[] row : blockGrid) {
-            System.out.println();
-            for (Block block : row) {
-                String string = "";
-                if (block.isTile()) {
-                    string = "-";
-                } else if (block.isWall()) {
-                    string = "W";
-                }
-                System.out.print(string + " ");
-            }
-        }
-        System.out.println("\n]");
-    }
-
-    public int getGridLength() {
-        return this.blockGrid.length;
-    }
-
-    public int getGridHeight() {
-        return this.blockGrid[0].length;
+    public Level getCurrLvl() {
+        return this.currentLevel;
     }
 
     public static void main(String[] args) {

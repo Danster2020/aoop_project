@@ -9,7 +9,6 @@ import javax.swing.JComponent;
 
 public class Block {
     
-    int xCoordinate, yCoordinate;
     int size;
     
     boolean isWall;
@@ -20,9 +19,7 @@ public class Block {
 
     public BufferedImage image;
 
-    public Block(int col, int row) {
-        this.xCoordinate = col;
-        this.yCoordinate = row;
+    public Block() {
         this.size = 32;
 
         this.isWall = false;

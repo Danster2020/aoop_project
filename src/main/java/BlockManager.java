@@ -41,8 +41,8 @@ public class BlockManager extends JComponent {
         super.paintComponent(g);
         Graphics2D draw = (Graphics2D) g;
 
-        for (int row = 0; row < game.getGridHeight(); row++) { // FIXME height not entirely lined up
-            for (int col = 0; col < game.getGridLength(); col++) {
+        for (int row = 0; row < game.getCurrLvl().getGridHeight(); row++) { // FIXME height not entirely lined up
+            for (int col = 0; col < game.getCurrLvl().getGridLength(); col++) {
                 newBlock(draw, col * blockSize, row * blockSize, boxImage);
             }
         }
