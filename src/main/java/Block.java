@@ -21,9 +21,9 @@ public class Block {
 
     public BufferedImage image;
 
-    public Block(int x, int y, Boolean wall) {
-        this.xCoordinate = x;
-        this.yCoordinate = y;
+    public Block(int col, int row, Boolean wall) {
+        this.xCoordinate = col;
+        this.yCoordinate = row;
         this.size = 32;
 
         this.hasBall = false;
@@ -39,9 +39,34 @@ public class Block {
         }
     }
 
+    public boolean isEmpty() {
+        return isEmpty;
+    }
+
+    public boolean isWall() {
+        return isWall;
+    }
+
+    public boolean isTile() {
+        return isTile;
+    }
+
+    public boolean HasBall() {
+        return hasBall;
+    }
+
+    public boolean hasBox() {
+        return hasBox;
+    }
+
+    public boolean hasPlayer() {
+        return hasPlayer;
+    }
+
     public void setWall() {
         isWall = true;
         isTile = false;
+        isEmpty = false;
     }
 
     public int getImgSize() {
