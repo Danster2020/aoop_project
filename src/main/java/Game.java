@@ -39,11 +39,19 @@ public class Game {
         System.out.println(getGridLength());
         System.out.println(getGridHeight());
 
+        System.out.println("x offset: "+jFrame.getX());
+        System.out.println("y offset: "+jFrame.getY());
+
+        // Dimension dimension = new Dimension(getWidth(),getHeight());
+
         BlockManager bM = new BlockManager(this);
+
         jFrame.add(bM);
-        
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
-        jFrame.setResizable(false);
+        // jFrame.setResizable(false);
+        
+        //jFrame.setUndecorated(true);
+        // jFrame.pack();
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
 
