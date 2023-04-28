@@ -12,8 +12,8 @@ public class Game {
 
     public Game() {
         jFrame = new JFrame("Sokoban");
-        WIDTH = 960; // 30 blocks
-        HEIGHT = 640; // 20 blocks
+        WIDTH = 960; // 30 blocks * 32 px = 960
+        HEIGHT = 672; // 20 blocks * 32 px = 640. added 32px to counter title length
 
         blockGrid = new Block[30][20];
 
@@ -29,18 +29,21 @@ public class Game {
             }
         }
 
-        blockGrid[29][17].setWall();
+        blockGrid[29][19].setWall();
 
         printBlocks(blockGrid);
 
         jFrame.addKeyListener(kH);
         jFrame.addMouseListener(kH);
 
+        System.out.println(getGridLength());
+        System.out.println(getGridHeight());
+
         BlockManager bM = new BlockManager(this);
         jFrame.add(bM);
-
-        jFrame.pack();
+        
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
+        jFrame.setResizable(false);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
 
@@ -61,16 +64,24 @@ public class Game {
             for (Block block : row) {
                 String string = "";
                 if (block.isEmpty()) {
-                    string = "E";
+                    string = "-";
                 } else if (block.isTile()) {
                     string = "T";
                 } else if (block.isWall()) {
                     string = "W";
                 }
-                System.out.print(string + ", ");
+                System.out.print(string + " ");
             }
         }
         System.out.println("\n]");
+    }
+
+    public int getGridLength() {
+        return this.blockGrid.length;
+    }
+
+    public int getGridHeight() {
+        return this.blockGrid[0].length;
     }
 
     public static void main(String[] args) {

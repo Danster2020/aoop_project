@@ -53,7 +53,7 @@ public class KeyHandler implements KeyListener, MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         //System.out.println("You clicked the mouse");
-        System.out.println("x: " + e.getXOnScreen() + " y: " + e.getYOnScreen());
+        System.out.println("x: " + e.getX() + " y: " + e.getY());
     }
 
     @Override

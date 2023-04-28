@@ -11,7 +11,7 @@ public class BlockManager extends JComponent {
 
     Game game;
     int blockSize;
-    BufferedImage blankImg, blankMarkedImg, wallImg;
+    BufferedImage blankImg, blankMarkedImg, wallImg, boxImage;
     String assetFolder = "../assets/";
     BufferedImage[][] imgBlocks;
 
@@ -22,6 +22,7 @@ public class BlockManager extends JComponent {
         this.blankImg = loadImg(assetFolder + "blank.png");
         this.blankMarkedImg = loadImg(assetFolder + "blankmarked.png");
         this.wallImg = loadImg(assetFolder + "wall.png");
+        this.boxImage = loadImg(assetFolder + "crate.png");
     }
 
     public BufferedImage loadImg(String path) {
@@ -40,12 +41,13 @@ public class BlockManager extends JComponent {
         super.paintComponent(g);
         Graphics2D draw = (Graphics2D) g;
 
-        for (int row = 0; row < game.getHeight() / blockSize; row++) { // FIXME height not entirely lined up
-            for (int col = 0; col < game.getWidth() / blockSize; col++) {
-                newBlock(draw, col * blockSize, row * blockSize, blankImg);
+        for (int row = 0; row < game.getGridHeight(); row++) { // FIXME height not entirely lined up
+            for (int col = 0; col < game.getGridLength(); col++) {
+                newBlock(draw, col * blockSize, row * blockSize, boxImage);
             }
         }
         newBlock(draw, 29 * blockSize, 17 * blockSize, wallImg);
+        newBlock(draw, 0 * blockSize, 0 * blockSize, wallImg);
     }
 
     public void newBlock(Graphics2D g2, int x, int y, BufferedImage image) {
