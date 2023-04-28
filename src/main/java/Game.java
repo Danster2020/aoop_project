@@ -11,17 +11,14 @@ public class Game {
     KeyHandler kH = new KeyHandler();
 
     public Game() {
+        WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
+        HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
+
+        // Frame
         jFrame = new JFrame("Sokoban");
-        WIDTH = 960; // 30 blocks * 32 px = 960
-        HEIGHT = 672; // 20 blocks * 32 px = 640. added 32px to counter title length
+        jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
 
         blockGrid = new Block[30][20];
-
-        // for (int row = 0; row < getHeight() / 32; row++) {
-        // for (int col = 0; col < getWidth() / 32; col++) {
-        // blockGrid[col][row] = new Block(16 * col + 1, 16 * row + 1, false);
-        // }
-        // }
 
         for (int row = 0; row < blockGrid[0].length; row++) {
             for (int col = 0; col < blockGrid.length; col++) {
@@ -33,27 +30,23 @@ public class Game {
 
         printBlocks(blockGrid);
 
-        jFrame.addKeyListener(kH);
-        jFrame.addMouseListener(kH);
-
-        System.out.println(getGridLength());
-        System.out.println(getGridHeight());
-
-        System.out.println("x offset: "+jFrame.getX());
-        System.out.println("y offset: "+jFrame.getY());
-
-        // Dimension dimension = new Dimension(getWidth(),getHeight());
 
         BlockManager bM = new BlockManager(this);
 
+        // Label
+        JLabel mouseLabel = new JLabel();
+        mouseLabel.setSize(WIDTH, HEIGHT);
+        mouseLabel.addMouseListener(kH); // sets mouse coordinates to be relative to canvas area
+
+        // Adds components
+        jFrame.addKeyListener(kH);
+        jFrame.add(mouseLabel);
         jFrame.add(bM);
-        jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
-        // jFrame.setResizable(false);
+
         
-        //jFrame.setUndecorated(true);
-        // jFrame.pack();
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
+
 
     }
 
