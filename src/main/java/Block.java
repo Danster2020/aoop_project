@@ -61,6 +61,12 @@ public class Block implements Serializable {
         isTile = true;
     }
 
+    public void setTarget() {
+        hasTarget = true;
+        isWall = false;
+        isTile = true;
+    }
+
     public int getImgSize() {
         return this.size;
     }
