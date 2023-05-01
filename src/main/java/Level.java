@@ -1,10 +1,24 @@
-public class Level {
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Level implements Serializable {
 
     Block[][] blockGrid;
     String levelName;
 
-    Level(Block[][] grid, String lvlName) {
-        this.blockGrid = grid;
+    Level(String lvlName) {
+
+        this.blockGrid = new Block[20][30]; // [row][col]
+
+        // defaults all blocks to be blank tiles
+        for (int row = 0; row < this.getGrid().length; row++) {
+            for (int col = 0; col < this.getGrid()[0].length; col++) {
+                this.setBlock(col, row, new Block());
+            }
+        }
+
         this.levelName = lvlName;
     }
 
@@ -17,13 +31,13 @@ public class Level {
     }
 
     public void setBlock(int col, int row, Block data) {
-        this.blockGrid[col][row] = data;
+        this.blockGrid[row][col] = data;
     }
 
     public void printBlocks() {
         System.out.print("[");
         for (Block[] row : blockGrid) {
-            System.out.println();
+            System.out.println("");
             for (Block block : row) {
                 String string = "";
                 if (block.isTile()) {
@@ -38,15 +52,40 @@ public class Level {
     }
 
     public int getGridLength() {
-        return this.blockGrid.length;
-    }
-
-    public int getGridHeight() {
         return this.blockGrid[0].length;
     }
 
-    public Block getBlock(int col, int row) {
-        return this.blockGrid[col][row];
+    public int getGridHeight() {
+        return this.blockGrid.length;
     }
 
+    public Block getBlock(int col, int row) {
+        return this.blockGrid[row][col];
+    }
+
+    public void saveLevel() {
+        ObjectOutputStream dataOut = null;
+        try {
+            dataOut = new ObjectOutputStream(new FileOutputStream(this.levelName + ".dat"));
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        try {
+            dataOut.writeObject(this);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        try {
+            // dataOut.flush();
+            dataOut.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }

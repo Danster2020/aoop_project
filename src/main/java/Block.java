@@ -1,13 +1,14 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 // package src.main.java;
 
-public class Block {
+public class Block implements Serializable {
     
     int size;
     

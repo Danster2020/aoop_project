@@ -2,16 +2,18 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class Game {
 
     JFrame jFrame;
-    Block[][] blockGrid;
     Level currentLevel;
     private final int WIDTH, HEIGHT;
     KeyHandler kH = new KeyHandler();
 
-    public Game() {
+    public Game()  {
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
 
@@ -19,20 +21,31 @@ public class Game {
         jFrame = new JFrame("Sokoban");
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
 
-        // blockGrid = new Block[30][20];
-        Level level1 = new Level(new Block[30][20], "level1");
-        this.currentLevel = level1;
+        this.currentLevel = new Level("level1");
 
-        for (int row = 0; row < level1.getGrid()[0].length; row++) {
-            for (int col = 0; col < level1.getGrid().length; col++) {
-                level1.setBlock(col, row, new Block());
-            }
+        for (int i = 0; i < currentLevel.getGridHeight(); i++) {
+            currentLevel.getBlock(i, i).setWall();
         }
 
-        level1.getBlock(0, 0).setWall();
-        level1.getBlock(29, 19).setWall();
+        currentLevel.saveLevel();
+        currentLevel.printBlocks();
 
-        level1.printBlocks();
+        for (int i = 0; i < currentLevel.getGridHeight(); i++) {
+            currentLevel.getBlock(i, i).setTile();
+        }
+
+        ObjectInputStream in = null;
+        try {
+            in = new ObjectInputStream(new FileInputStream("level1.dat"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            currentLevel = (Level) in.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         BlockManager bM = new BlockManager(this);
 
@@ -45,7 +58,8 @@ public class Game {
         jFrame.addKeyListener(kH);
         jFrame.add(mouseLabel);
         jFrame.add(bM);
-        
+
+        jFrame.getContentPane().setBackground(Color.BLACK);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
     }
@@ -62,7 +76,7 @@ public class Game {
         return this.currentLevel;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
         System.out.println("starting game...");
         new Game();
     }
