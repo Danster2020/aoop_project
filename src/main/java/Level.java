@@ -30,6 +30,10 @@ public class Level implements Serializable {
         return this.levelName;
     }
 
+    public void setName(String levelName) {
+        this.levelName = levelName;
+    }
+
     public void setBlock(int col, int row, Block data) {
         this.blockGrid[row][col] = data;
     }
@@ -40,10 +44,18 @@ public class Level implements Serializable {
             System.out.println("");
             for (Block block : row) {
                 String string = "";
-                if (block.isTile()) {
-                    string = "-";
+                if (block.hasPlayer()) {
+                    string = "P";
+                } else if (block.hasBox()) {
+                    string = "B";
+                } else if (block.isTarget()) {
+                    string = "T";
                 } else if (block.isWall()) {
                     string = "W";
+                } else if (block.isTile()) {
+                    string = "-";
+                } else {
+                    string = "null";
                 }
                 System.out.print(string + " ");
             }
@@ -69,23 +81,20 @@ public class Level implements Serializable {
             dataOut = new ObjectOutputStream(new FileOutputStream(this.levelName + ".dat"));
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         try {
             dataOut.writeObject(this);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         try {
-            // dataOut.flush();
             dataOut.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        System.out.println("Level saved!");
     }
 }

@@ -11,7 +11,7 @@ public class BlockManager extends JComponent {
 
     Game game;
     int blockSize;
-    BufferedImage blankImg, blankMarkedImg, wallImg, boxImg, playerImg;
+    BufferedImage tileImg, targetImg, wallImg, boxImg, playerImg;
     String assetFolder = "../assets/";
     BufferedImage[][] imgBlocks;
 
@@ -19,8 +19,8 @@ public class BlockManager extends JComponent {
         this.game = g;
         this.blockSize = 32;
 
-        this.blankImg = loadImg(assetFolder + "blank.png");
-        this.blankMarkedImg = loadImg(assetFolder + "blankmarked.png");
+        this.tileImg = loadImg(assetFolder + "blank.png");
+        this.targetImg = loadImg(assetFolder + "blankmarked.png");
         this.wallImg = loadImg(assetFolder + "wall.png");
         this.boxImg = loadImg(assetFolder + "crate.png");
         this.playerImg = loadImg(assetFolder + "player_knuckles.png");
@@ -57,14 +57,16 @@ public class BlockManager extends JComponent {
         Block block = game.getCurrLvl().getBlock(col, row);
         BufferedImage imageToPaint = null;
 
-        if (block.hasTarget()) {
-            imageToPaint = this.blankMarkedImg;
+        if (block.isTarget()) {
+            imageToPaint = this.targetImg;
         } else if (block.hasPlayer()) {
             imageToPaint = this.playerImg;
+        } else if (block.hasBox()) {
+            imageToPaint = this.boxImg;
         } else if (block.isWall()) {
             imageToPaint = this.wallImg;
         } else {
-                imageToPaint = this.blankImg;
+            imageToPaint = this.tileImg;
         }
 
         return imageToPaint;

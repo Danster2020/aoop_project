@@ -12,20 +12,26 @@ public class Block implements Serializable {
     
     int size;
     
-    boolean isWall;
-    boolean isTile;
-    boolean hasTarget;
-    boolean hasBox;
-    boolean hasPlayer;
-
-    public BufferedImage image;
+    private boolean isWall;
+    private boolean isTile;
+    private boolean isTarget;
+    private boolean hasBox;
+    private boolean hasPlayer;
 
     public Block() {
         this.size = 32;
 
         this.isWall = false;
         this.isTile = true;
-        this.hasTarget = false;
+        this.isTarget = false;
+        this.hasBox = false;
+        this.hasPlayer = false;
+    }
+
+    public void clearBlock() {
+        this.isWall = false;
+        this.isTile = false;
+        this.isTarget = false;
         this.hasBox = false;
         this.hasPlayer = false;
     }
@@ -39,8 +45,8 @@ public class Block implements Serializable {
         return isTile;
     }
 
-    public boolean hasTarget() {
-        return hasTarget;
+    public boolean isTarget() {
+        return isTarget;
     }
 
     public boolean hasBox() {
@@ -52,19 +58,53 @@ public class Block implements Serializable {
     }
 
     public void setWall() {
+        clearBlock();
         isWall = true;
-        isTile = false;
     }
 
     public void setTile() {
-        isWall = false;
+        clearBlock();
         isTile = true;
     }
 
     public void setTarget() {
-        hasTarget = true;
-        isWall = false;
+        clearBlock();
+        isTarget = true;
+    }
+
+    public void setPlayer() {
+        clearBlock();
         isTile = true;
+        hasPlayer = true;
+    }
+
+    public void setBox() {
+        clearBlock();
+        isTile = true;
+        hasBox = true;
+    }
+
+    public void ToggleBlock() {
+        if (hasPlayer) {
+            setTile();
+            return;
+        }
+        if (hasBox) {
+            setPlayer();
+            return;
+        }
+        if (isTarget) {
+            setBox();
+            return;
+        }
+        if (isWall) {
+            setTarget();
+            return;
+        }
+        if (isTile) {
+            setWall();
+            return;
+        }
     }
 
     public int getImgSize() {

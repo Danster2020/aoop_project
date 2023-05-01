@@ -1,9 +1,11 @@
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class KeyHandler implements KeyListener, MouseListener {
+public class KeyHandler implements KeyListener, MouseListener, ActionListener {
 
     public boolean northPressed, southPressed, westPressed, eastPressed, buttonPressed;
     Game game;
@@ -62,7 +64,7 @@ public class KeyHandler implements KeyListener, MouseListener {
         int col = e.getX() / 32;
         int row = e.getY() / 32;
         System.out.println("col: "+ col + " Row: " + row);
-        game.currentLevel.getBlock(col, row).setWall();
+        game.getCurrLvl().getBlock(col, row).ToggleBlock();
         game.jFrame.repaint();
     }
 
@@ -84,6 +86,17 @@ public class KeyHandler implements KeyListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
         // Exist Frame Window
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == game.saveBtn) {
+            game.getCurrLvl().setName(game.TextAreaFile.getText());
+            game.getCurrLvl().saveLevel();
+        } else if (e.getSource() == game.loadBtn) {
+            game.loadLevel(game.TextAreaFile.getText());
+        }
     }
 
 }
