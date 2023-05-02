@@ -95,7 +95,7 @@ public class Game {
         editorFrame.setLayout(new BorderLayout());
         saveBtn = new JButton("Save");
         loadBtn = new JButton("Load");
-        TextAreaFile = new TextArea("name of file...");
+        TextAreaFile = new TextArea("");
         editorFrame.add(TextAreaFile, BorderLayout.CENTER);
         editorFrame.add(saveBtn, BorderLayout.PAGE_START);
         editorFrame.add(loadBtn, BorderLayout.PAGE_END);
