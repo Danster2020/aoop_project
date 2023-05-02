@@ -43,7 +43,7 @@ public class BlockManager extends JComponent {
         super.paintComponent(g);
         Graphics2D draw = (Graphics2D) g;
 
-        for (int row = 0; row < game.getCurrLvl().getGridHeight(); row++) { // FIXME height not entirely lined up
+        for (int row = 0; row < game.getCurrLvl().getGridHeight(); row++) {
             for (int col = 0; col < game.getCurrLvl().getGridLength(); col++) {
                 newBlock(draw, col * blockSize, row * blockSize, paintBlock(col, row));
             }
@@ -59,17 +59,17 @@ public class BlockManager extends JComponent {
     public BufferedImage paintBlock(int col, int row) {
         Block block = game.getCurrLvl().getBlock(col, row);
 
-        if (block.hasTargetBox()) {
-            return this.BoxTargetImg;
-        }
-        if (block.isTarget()) {
-            return this.targetImg;
-        }
         if (block.hasPlayer()) {
             return this.playerImg;
         }
+        if (block.hasTargetBox()) {
+            return this.BoxTargetImg;
+        }
         if (block.hasBox()) {
             return this.boxImg;
+        }
+        if (block.isTarget()) {
+            return this.targetImg;
         }
         if (block.isWall()) {
             return this.wallImg;

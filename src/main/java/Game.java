@@ -5,6 +5,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class Game {
 
@@ -14,6 +15,7 @@ public class Game {
     KeyHandler kH;
 
     private Player player;
+    private ArrayList<Box> boxes;
 
     // Editor
     JFrame editorFrame;
@@ -71,6 +73,24 @@ public class Game {
         return player;
     }
 
+    public ArrayList<Box> getBoxes() {
+        return boxes;
+    }
+
+    public void spawnBoxes() {
+        boxes = new ArrayList<Box>();
+        for (int row = 0; row < this.getCurrLvl().getGrid().length; row++) {
+            for (int col = 0; col < this.getCurrLvl().getGrid()[0].length; col++) {
+                if (this.getCurrLvl().getBlock(col, row).hasBox()) {
+                    Box box = new Box(this);
+                    box.setRow(row);
+                    box.setCol(col);
+                    boxes.add(box);
+                }
+            }
+        }
+    }
+
     public void loadLevel(String fileName) {
         ObjectInputStream in = null;
         try {
@@ -85,6 +105,9 @@ public class Game {
             e.printStackTrace();
         }
         getPlayer().spawnPlayer();
+        spawnBoxes();
+
+        
         jFrame.repaint();
         System.out.println("Level loaded!");
     }

@@ -78,6 +78,32 @@ public class Level implements Serializable {
         return this.blockGrid[row][col];
     }
 
+    public int getBlockCol(Block targetBlock) {
+        int colIndex = 0;
+        for (Block[] row : blockGrid) {
+            for (Block block : row) {
+                if (block.equals(targetBlock)) {
+                    return colIndex;
+                }
+                colIndex++;
+            }
+        }
+        return -1;
+    }
+
+    public int getBlockRow(Block targetBlock) {
+        int rowIndex = 0;
+        for (Block[] row : blockGrid) {
+            for (Block block : row) {
+                if (block.equals(targetBlock)) {
+                    return rowIndex;
+                }
+            }
+            rowIndex++;
+        }
+        return -1;
+    }
+
     public void saveLevel() {
         ObjectOutputStream dataOut = null;
         try {

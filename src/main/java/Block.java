@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 
 public class Block implements Serializable {
 
+    private static final long serialVersionUID = 0000000000000000001L;
     int size;
 
     private boolean isWall;
@@ -84,15 +85,6 @@ public class Block implements Serializable {
         hasPlayer = true;
     }
 
-    // Prevents overwriting of block(target)
-    public void placePlayer() {
-        hasPlayer = true;
-    }
-
-    public void removePlayer() {
-        hasPlayer = false;
-    }
-
     public void setBox() {
         clearBlock();
         isTile = true;
@@ -103,6 +95,24 @@ public class Block implements Serializable {
         clearBlock();
         isTarget = true;
         hasBox = true;
+    }
+
+    // Prevents overwriting of block(target)
+    public void placePlayer() {
+        hasPlayer = true;
+    }
+
+    public void removePlayer() {
+        hasPlayer = false;
+    }
+
+    // Prevents overwriting of block(target)
+    public void placeBox() {
+        hasBox = true;
+    }
+
+    public void removeBox() {
+        hasBox = false;
     }
 
     public void ToggleBlock() {
