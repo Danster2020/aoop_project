@@ -84,6 +84,15 @@ public class Block implements Serializable {
         hasPlayer = true;
     }
 
+    // Prevents overwriting of block(target)
+    public void placePlayer() {
+        hasPlayer = true;
+    }
+
+    public void removePlayer() {
+        hasPlayer = false;
+    }
+
     public void setBox() {
         clearBlock();
         isTile = true;

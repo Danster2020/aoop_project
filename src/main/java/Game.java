@@ -13,6 +13,8 @@ public class Game {
     private final int WIDTH, HEIGHT;
     KeyHandler kH;
 
+    private Player player;
+
     // Editor
     JFrame editorFrame;
     JButton saveBtn;
@@ -34,7 +36,7 @@ public class Game {
         currentLevel.printBlocks();
 
         BlockManager bM = new BlockManager(this);
-
+        this.player = new Player(this);
         startLevelEditor();
 
         // Label
@@ -65,6 +67,10 @@ public class Game {
         return this.currentLevel;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void loadLevel(String fileName) {
         ObjectInputStream in = null;
         try {
@@ -78,6 +84,7 @@ public class Game {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        getPlayer().spawnPlayer();
         jFrame.repaint();
         System.out.println("Level loaded!");
     }

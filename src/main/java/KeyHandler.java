@@ -25,16 +25,21 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
 
         if (keyboardINT == KeyEvent.VK_W) {
             northPressed = true;
+            game.getPlayer().moveUp();
         }
         if (keyboardINT == KeyEvent.VK_S) {
             southPressed = true;
+            game.getPlayer().moveDown();
         }
         if (keyboardINT == KeyEvent.VK_A) {
             westPressed = true;
+            game.getPlayer().moveLeft();
         }
         if (keyboardINT == KeyEvent.VK_D) {
             eastPressed = true;
+            game.getPlayer().moveRight();
         }
+        game.jFrame.repaint();
         System.out.println("you pressed " + e.getKeyChar());
     }
 

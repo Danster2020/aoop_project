@@ -5,6 +5,10 @@
 
 public class MovableObject{
 
+    MovableObject(Game g){
+
+    }
+
     public void moveUp() {
         
     }
@@ -24,5 +28,4 @@ public class MovableObject{
     public void blockAhead(){
         // TODO
     }
-
 }
