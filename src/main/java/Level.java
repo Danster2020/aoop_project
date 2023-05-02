@@ -46,6 +46,8 @@ public class Level implements Serializable {
                 String string = "";
                 if (block.hasPlayer()) {
                     string = "P";
+                } else if (block.hasTargetBox()) {
+                    string = "TB";
                 } else if (block.hasBox()) {
                     string = "B";
                 } else if (block.isTarget()) {

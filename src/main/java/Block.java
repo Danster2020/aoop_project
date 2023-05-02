@@ -9,9 +9,9 @@ import javax.swing.JComponent;
 // package src.main.java;
 
 public class Block implements Serializable {
-    
+
     int size;
-    
+
     private boolean isWall;
     private boolean isTile;
     private boolean isTarget;
@@ -36,7 +36,6 @@ public class Block implements Serializable {
         this.hasPlayer = false;
     }
 
-
     public boolean isWall() {
         return isWall;
     }
@@ -51,6 +50,13 @@ public class Block implements Serializable {
 
     public boolean hasBox() {
         return hasBox;
+    }
+
+    public boolean hasTargetBox() {
+        if (hasBox && isTarget) {
+            return true;
+        }
+        return false;
     }
 
     public boolean hasPlayer() {
@@ -84,13 +90,23 @@ public class Block implements Serializable {
         hasBox = true;
     }
 
+    public void setTargetBox() {
+        clearBlock();
+        isTarget = true;
+        hasBox = true;
+    }
+
     public void ToggleBlock() {
         if (hasPlayer) {
             setTile();
             return;
         }
-        if (hasBox) {
+        if (hasTargetBox()) {
             setPlayer();
+            return;
+        }
+        if (hasBox && !isTarget) {
+            setTargetBox();
             return;
         }
         if (isTarget) {
