@@ -1,4 +1,4 @@
-public class Player {
+public class Player extends MovableObject {
 
     int pCol, pRow;// Player column and row
     Boolean playerExist;
@@ -31,25 +31,57 @@ public class Player {
     }
 
     public void moveUp() {
-        game.getCurrLvl().getBlock(pCol, pRow - 1).placePlayer();
+        Block destination = null;
+        destination = game.getCurrLvl().getBlock(pCol, pRow - 1);
+
+        if (this.ifCollision(destination)) {
+            System.out.println("This tile is blocked");
+            return;
+        }
+
+        destination.placePlayer();
         game.getCurrLvl().getBlock(pCol, pRow).removePlayer();
         pRow -= 1;
     }
 
     public void moveDown() {
-        game.getCurrLvl().getBlock(pCol, pRow + 1).placePlayer();
+        Block destination = null;
+        destination = game.getCurrLvl().getBlock(pCol, pRow + 1);
+
+        if (this.ifCollision(destination)) {
+            System.out.println("This tile is blocked");
+            return;
+        }
+
+        destination.placePlayer();
         game.getCurrLvl().getBlock(pCol, pRow).removePlayer();
         pRow += 1;
     }
 
     public void moveLeft() {
-        game.getCurrLvl().getBlock(pCol - 1, pRow).placePlayer();
+        Block destination = null;
+        destination = game.getCurrLvl().getBlock(pCol - 1, pRow);
+
+        if (this.ifCollision(destination)) {
+            System.out.println("This tile is blocked");
+            return;
+        }
+
+        destination.placePlayer();
         game.getCurrLvl().getBlock(pCol, pRow).removePlayer();
         pCol -= 1;
     }
 
     public void moveRight() {
-        game.getCurrLvl().getBlock(pCol + 1, pRow).placePlayer();
+        Block destination = null;
+        destination = game.getCurrLvl().getBlock(pCol + 1, pRow);
+
+        if (this.ifCollision(destination)) {
+            System.out.println("This tile is blocked");
+            return;
+        }
+
+        destination.placePlayer();
         game.getCurrLvl().getBlock(pCol, pRow).removePlayer();
         pCol += 1;
     }
