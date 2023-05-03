@@ -23,21 +23,21 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         int keyboardINT = e.getKeyCode();
 
-        if (keyboardINT == KeyEvent.VK_W) {
+        if (keyboardINT == KeyEvent.VK_W || keyboardINT == KeyEvent.VK_UP) {
             northPressed = true;
-            game.getPlayer().moveUp();
+            game.getPlayer().move(Game.Direction.UP);
         }
-        if (keyboardINT == KeyEvent.VK_S) {
+        if (keyboardINT == KeyEvent.VK_S || keyboardINT == KeyEvent.VK_DOWN) {
             southPressed = true;
-            game.getPlayer().moveDown();
+            game.getPlayer().move(Game.Direction.DOWN);
         }
-        if (keyboardINT == KeyEvent.VK_A) {
+        if (keyboardINT == KeyEvent.VK_A || keyboardINT == KeyEvent.VK_LEFT) {
             westPressed = true;
-            game.getPlayer().moveLeft();
+            game.getPlayer().move(Game.Direction.LEFT);
         }
-        if (keyboardINT == KeyEvent.VK_D) {
+        if (keyboardINT == KeyEvent.VK_D || keyboardINT == KeyEvent.VK_RIGHT) {
             eastPressed = true;
-            game.getPlayer().moveRight();
+            game.getPlayer().move(Game.Direction.RIGHT);
         }
         game.jFrame.repaint();
         System.out.println("you pressed " + e.getKeyChar());
@@ -45,21 +45,21 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int keyboardINT = e.getKeyCode();
+        // int keyboardINT = e.getKeyCode();
 
-        if (keyboardINT == KeyEvent.VK_W) {
-            northPressed = false;
-        }
-        if (keyboardINT == KeyEvent.VK_S) {
-            southPressed = false;
-        }
-        if (keyboardINT == KeyEvent.VK_A) {
-            westPressed = false;
-        }
-        if (keyboardINT == KeyEvent.VK_D) {
-            eastPressed = false;
-        }
-        System.out.println("you released " + e.getKeyChar());
+        // if (keyboardINT == KeyEvent.VK_W) {
+        // northPressed = false;
+        // }
+        // if (keyboardINT == KeyEvent.VK_S) {
+        // southPressed = false;
+        // }
+        // if (keyboardINT == KeyEvent.VK_A) {
+        // westPressed = false;
+        // }
+        // if (keyboardINT == KeyEvent.VK_D) {
+        // eastPressed = false;
+        // }
+        // System.out.println("you released " + e.getKeyChar());
     }
 
     @Override
@@ -68,7 +68,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         System.out.println("x: " + e.getX() + " y: " + e.getY());
         int col = e.getX() / 32;
         int row = e.getY() / 32;
-        System.out.println("col: "+ col + " Row: " + row);
+        System.out.println("col: " + col + " Row: " + row);
         game.getCurrLvl().getBlock(col, row).ToggleBlock();
         game.jFrame.repaint();
     }

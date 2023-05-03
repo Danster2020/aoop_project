@@ -1,14 +1,7 @@
 public abstract class MovableObject {
 
-    int objCol, objRow;// Player column and row
+    private int objCol, objRow;// Player column and row
     Game game;
-
-    enum Direction {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    }
 
     MovableObject(Game g) {
         this.game = g;
@@ -38,77 +31,59 @@ public abstract class MovableObject {
         return game.getCurrLvl().getBlock(col, row);
     }
 
-    public void moveUp() {
+    // returns if move was successful or not
+    public boolean move(Game.Direction dir) {
         Block source = getBlock(objCol, objRow);
-        Block destination = getBlock(objCol, objRow - 1);
+        Block destination = null;
 
-        if (this.ifCollision(destination, Direction.UP)) {
-            return;
+        int newCol = objCol;
+        int newRow = objRow;
+
+        if (dir == Game.Direction.UP) {
+            destination = getBlock(objCol, objRow - 1);
+            newRow -= 1;
+        } else if (dir == Game.Direction.DOWN) {
+            destination = getBlock(objCol, objRow + 1);
+            newRow += 1;
+        } else if (dir == Game.Direction.LEFT) {
+            destination = getBlock(objCol - 1, objRow);
+            newCol -= 1;
+        } else if (dir == Game.Direction.RIGHT) {
+            destination = getBlock(objCol + 1, objRow);
+            newCol += 1;
+        }
+
+        if (this.ifCollision(source, destination, dir)) {
+            return false;
         }
 
         place(destination);
         remove(source);
-        objRow -= 1;
+        objCol = newCol;
+        objRow = newRow;
+        return true;
     }
 
-    public void moveDown() {
-        Block source = getBlock(objCol, objRow);
-        Block destination = getBlock(objCol, objRow + 1);
+    public Boolean ifCollision(Block moveFrom, Block moveTo, Game.Direction dir) {
 
-        if (this.ifCollision(destination, Direction.DOWN)) {
-            return;
-        }
-
-        place(destination);
-        remove(source);
-        objRow += 1;
-    }
-
-    public void moveLeft() {
-        Block source = getBlock(objCol, objRow);
-        Block destination = getBlock(objCol - 1, objRow);
-
-        if (this.ifCollision(destination, Direction.LEFT)) {
-            return;
-        }
-
-        place(destination);
-        remove(source);
-        objCol -= 1;
-    }
-
-    public void moveRight() {
-        Block source = getBlock(objCol, objRow);
-        Block destination = getBlock(objCol + 1, objRow);
-
-        if (this.ifCollision(destination, Direction.RIGHT)) {
-            return;
-        }
-
-        place(destination);
-        remove(source);
-        objCol += 1;
-    }
-
-    public Boolean ifCollision(Block moveTo, Direction dir) {
         if (moveTo.isWall()) {
             System.out.println("This tile is blocked by wall!");
             return true;
         }
+
+        if (moveFrom.hasBox() && moveTo.hasBox()) {
+            System.out.println("blocked!");
+            return true;
+        }
+
         if (moveTo.hasBox()) {
-            // TODO
             for (Box box : game.getBoxes()) {
                 if (box.getCol() == game.getCurrLvl().getBlockCol(moveTo)
                         && box.getRow() == game.getCurrLvl().getBlockRow(moveTo)) {
                     System.out.println("hit");
-                    if (dir == Direction.UP) {
-                        box.moveUp();
-                    } else if (dir == Direction.DOWN) {
-                        box.moveDown();
-                    } else if (dir == Direction.LEFT) {
-                        box.moveLeft();
-                    } else if (dir == Direction.RIGHT) {
-                        box.moveRight();
+                    
+                    if (!box.move(dir)) {
+                        return true;
                     }
                 }
             }

@@ -1,3 +1,5 @@
+import java.util.PrimitiveIterator.OfDouble;
+
 public class Box extends MovableObject {
 
     Box(Game g) {
@@ -13,7 +15,4 @@ public class Box extends MovableObject {
     public void remove(Block block) {
         block.removeBox();
     }
-
-
-
 }

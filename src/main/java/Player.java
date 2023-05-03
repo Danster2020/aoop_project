@@ -18,8 +18,8 @@ public class Player extends MovableObject {
         for (int row = 0; row < game.getCurrLvl().getGrid().length; row++) {
             for (int col = 0; col < game.getCurrLvl().getGrid()[0].length; col++) {
                 if (game.getCurrLvl().getBlock(col, row).hasPlayer()) {
-                    this.objRow = row;
-                    this.objCol = col;
+                    this.setRow(row);
+                    this.setCol(col);
                     System.out.println("Player spawned!");
                     return;
                 }

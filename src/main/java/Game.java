@@ -23,6 +23,13 @@ public class Game {
     JButton loadBtn;
     TextArea TextAreaFile;
 
+    enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
     public Game() {
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
@@ -40,6 +47,7 @@ public class Game {
         BlockManager bM = new BlockManager(this);
         this.player = new Player(this);
         startLevelEditor();
+        loadLevel("level1");
 
         // Label
         JLabel mouseLabel = new JLabel();
@@ -125,8 +133,7 @@ public class Game {
         saveBtn.addActionListener(kH);
         loadBtn.addActionListener(kH);
 
-        editorFrame.setSize(200, 300);
-        editorFrame.pack();
+        editorFrame.setSize(200, 200);
         editorFrame.setVisible(true);
     }
 
