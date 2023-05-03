@@ -102,7 +102,7 @@ public class Game {
     public void loadLevel(String fileName) {
         ObjectInputStream in = null;
         try {
-            in = new ObjectInputStream(new FileInputStream(fileName + ".dat"));
+            in = new ObjectInputStream(new FileInputStream("../levels/" + fileName + ".dat"));
         } catch (IOException e) {
             e.printStackTrace();
         }

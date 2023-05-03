@@ -108,7 +108,7 @@ public class Level implements Serializable {
     public void saveLevel() {
         ObjectOutputStream dataOut = null;
         try {
-            dataOut = new ObjectOutputStream(new FileOutputStream(this.levelName + ".dat"));
+            dataOut = new ObjectOutputStream(new FileOutputStream("../levels/" + this.levelName + ".dat"));
 
         } catch (IOException e) {
             e.printStackTrace();
