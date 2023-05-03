@@ -3,6 +3,13 @@ public abstract class MovableObject {
     int objCol, objRow;// Player column and row
     Game game;
 
+    enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
     MovableObject(Game g) {
         this.game = g;
     }
@@ -35,7 +42,7 @@ public abstract class MovableObject {
         Block source = getBlock(objCol, objRow);
         Block destination = getBlock(objCol, objRow - 1);
 
-        if (this.ifCollision(destination)) {
+        if (this.ifCollision(destination, Direction.UP)) {
             return;
         }
 
@@ -48,7 +55,7 @@ public abstract class MovableObject {
         Block source = getBlock(objCol, objRow);
         Block destination = getBlock(objCol, objRow + 1);
 
-        if (this.ifCollision(destination)) {
+        if (this.ifCollision(destination, Direction.DOWN)) {
             return;
         }
 
@@ -61,7 +68,7 @@ public abstract class MovableObject {
         Block source = getBlock(objCol, objRow);
         Block destination = getBlock(objCol - 1, objRow);
 
-        if (this.ifCollision(destination)) {
+        if (this.ifCollision(destination, Direction.LEFT)) {
             return;
         }
 
@@ -74,7 +81,7 @@ public abstract class MovableObject {
         Block source = getBlock(objCol, objRow);
         Block destination = getBlock(objCol + 1, objRow);
 
-        if (this.ifCollision(destination)) {
+        if (this.ifCollision(destination, Direction.RIGHT)) {
             return;
         }
 
@@ -83,7 +90,7 @@ public abstract class MovableObject {
         objCol += 1;
     }
 
-    public Boolean ifCollision(Block moveTo) {
+    public Boolean ifCollision(Block moveTo, Direction dir) {
         if (moveTo.isWall()) {
             System.out.println("This tile is blocked by wall!");
             return true;
@@ -91,7 +98,19 @@ public abstract class MovableObject {
         if (moveTo.hasBox()) {
             // TODO
             for (Box box : game.getBoxes()) {
-                System.out.println("col/row" + box.getCol()+ " " + box.getRow());
+                if (box.getCol() == game.getCurrLvl().getBlockCol(moveTo)
+                        && box.getRow() == game.getCurrLvl().getBlockRow(moveTo)) {
+                    System.out.println("hit");
+                    if (dir == Direction.UP) {
+                        box.moveUp();
+                    } else if (dir == Direction.DOWN) {
+                        box.moveDown();
+                    } else if (dir == Direction.LEFT) {
+                        box.moveLeft();
+                    } else if (dir == Direction.RIGHT) {
+                        box.moveRight();
+                    }
+                }
             }
         }
         return false;

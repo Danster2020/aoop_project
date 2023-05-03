@@ -87,6 +87,7 @@ public class Level implements Serializable {
                 }
                 colIndex++;
             }
+            colIndex = 0;
         }
         return -1;
     }
