@@ -105,8 +105,8 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             game.loadLevel(game.TextAreaFile.getText());
             return;
         }
-        if (e.getSource() == game.restartLevel) {
-            game.loadLevel(game.getCurrLvl().getName());
+        if (e.getSource() == game.startLvlEditor) {
+            game.startLevelEditor();
             return;
         }
     }

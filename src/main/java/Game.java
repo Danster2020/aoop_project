@@ -27,6 +27,7 @@ public class Game {
     //Menu
     MenuBar menuBar;
     MenuItem restartLevel;
+    MenuItem startLvlEditor;
 
     enum Direction {
         UP,
@@ -52,7 +53,6 @@ public class Game {
         BlockManager bM = new BlockManager(this);
         this.player = new Player(this);
         sound = new Sound(this);
-        startLevelEditor();
         loadLevel("level1");
         menuBar();
 
@@ -134,9 +134,16 @@ public class Game {
         jFrame.setMenuBar(menuBar);
 
         // Levelmenu
+
+        // RestartItem
         restartLevel = new MenuItem("Restart");
         levelMenu.add(restartLevel);
         restartLevel.addActionListener(kH);
+
+        // LevelEditorItem
+        startLvlEditor = new MenuItem("Start Level Editor");
+        levelMenu.add(startLvlEditor);
+        startLvlEditor.addActionListener(kH);
     }
 
     public void startLevelEditor() {
