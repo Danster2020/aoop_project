@@ -14,6 +14,7 @@ public class Game {
     private Level currentLevel;
     boolean isCustomLevel;
     private final int WIDTH, HEIGHT;
+    private int blockSize;
     KeyHandler kH;
     Sound sound;
 
@@ -27,10 +28,14 @@ public class Game {
     TextField textAreaFile;
     JCheckBox checkBoxCustomLvl;
 
-    // Menu
-    MenuBar menuBar;
+    
+    // Level Menu
     MenuItem restartLevel;
     MenuItem startLvlEditor;
+
+    // Zoom Menu
+    MenuItem zoomIn;
+    MenuItem zoomOut;
 
     // Flags
     private boolean isLvlEditorOn;
@@ -46,6 +51,7 @@ public class Game {
         GAMENAME = "Sokoban";
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
+        blockSize = 32;
 
         BlockManager bM = new BlockManager(this);
         this.kH = new KeyHandler(this);
@@ -60,6 +66,7 @@ public class Game {
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
         jFrame.getContentPane().setBackground(Color.BLACK);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
+        jFrame.setLocationRelativeTo(null);
 
         // Init config
         menuBar();
@@ -77,6 +84,10 @@ public class Game {
 
         jFrame.setVisible(true);
         System.out.println("Game started!");
+    }
+
+    public int getBlockSize() {
+        return blockSize;
     }
 
     public int getWidth() {
@@ -109,6 +120,10 @@ public class Game {
 
     public void setLvlEditorOn(boolean status) {
         this.isLvlEditorOn = status;
+    }
+
+    public void setBlockSize(int blockSize) {
+        this.blockSize = blockSize;
     }
 
     public void spawnBoxes() {
@@ -157,21 +172,35 @@ public class Game {
 
     public void menuBar() {
         MenuBar menuBar = new MenuBar();
-        Menu levelMenu = new Menu("Level");
-        menuBar.add(levelMenu);
         jFrame.setMenuBar(menuBar);
 
-        // Levelmenu
+        // #Levelmenu
+        Menu levelMenu = new Menu("Level");
+        menuBar.add(levelMenu);
 
-        // RestartItem
+        // ##RestartItem
         restartLevel = new MenuItem("Restart");
-        levelMenu.add(restartLevel);
         restartLevel.addActionListener(kH);
+        levelMenu.add(restartLevel);
 
-        // LevelEditorItem
+        // ##LevelEditorItem
         startLvlEditor = new MenuItem("Start Level Editor");
-        levelMenu.add(startLvlEditor);
         startLvlEditor.addActionListener(kH);
+        levelMenu.add(startLvlEditor);
+
+        // #Zoom menu
+        Menu zoomMenu = new Menu("Zoom");
+        menuBar.add(zoomMenu);
+
+        // ##ZoomIn
+        zoomIn = new MenuItem("Zoom in");
+        zoomIn.addActionListener(kH);
+        zoomMenu.add(zoomIn);
+
+        // ##ZoomOut
+        zoomOut = new MenuItem("Zoom out");
+        zoomOut.addActionListener(kH);
+        zoomMenu.add(zoomOut);
     }
 
     public void startLevelEditor(boolean status) {

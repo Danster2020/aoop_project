@@ -1,6 +1,9 @@
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.JFrame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -45,40 +48,26 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // int keyboardINT = e.getKeyCode();
 
-        // if (keyboardINT == KeyEvent.VK_W) {
-        // northPressed = false;
-        // }
-        // if (keyboardINT == KeyEvent.VK_S) {
-        // southPressed = false;
-        // }
-        // if (keyboardINT == KeyEvent.VK_A) {
-        // westPressed = false;
-        // }
-        // if (keyboardINT == KeyEvent.VK_D) {
-        // eastPressed = false;
-        // }
-        // System.out.println("you released " + e.getKeyChar());
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // System.out.println("You clicked the mouse");
-        // System.out.println("x: " + e.getX() + " y: " + e.getY());
 
-        if (game.isLvlEditorOn()) {
-            int col = e.getX() / 32;
-            int row = e.getY() / 32;
-            System.out.println("col: " + col + " Row: " + row);
-            game.getCurrLvl().getBlock(col, row).ToggleBlock();
-            game.jFrame.repaint();
-        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        // System.out.println("You clicked the mouse");
+        // System.out.println("x: " + e.getX() + " y: " + e.getY());
 
+        if (game.isLvlEditorOn()) {
+            int col = e.getX() / game.getBlockSize();
+            int row = e.getY() / game.getBlockSize();
+            System.out.println("col: " + col + " Row: " + row);
+            game.getCurrLvl().getBlock(col, row).ToggleBlock();
+            game.jFrame.repaint();
+        }
     }
 
     @Override
@@ -117,6 +106,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             }
         }
 
+        // Menubar
         if (e.getSource() == game.restartLevel) {
             String customPath = "";
             if (game.isCustomLevel) {
@@ -129,6 +119,21 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         }
         if (e.getSource() == game.startLvlEditor) {
             game.startLevelEditor(!game.isLvlEditorOn());
+            return;
+        }
+        if (e.getSource() == game.zoomIn) {
+            game.setBlockSize(game.getBlockSize() + 16);
+            System.out.println("Zoomed in");
+            game.jFrame.repaint();
+            return;
+        }
+
+        if (e.getSource() == game.zoomOut) {
+            if (game.getBlockSize() >= 32) {
+                System.out.println("Zoomed out");
+                game.setBlockSize(game.getBlockSize() - 8);
+                game.jFrame.repaint();
+            }
             return;
         }
     }

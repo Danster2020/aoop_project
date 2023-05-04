@@ -10,14 +10,12 @@ import javax.swing.JComponent;
 public class BlockManager extends JComponent {
 
     Game game;
-    int blockSize;
     BufferedImage tileImg, targetImg, wallImg, boxImg, BoxTargetImg, playerImg;
     String assetFolder = "../assets/";
     BufferedImage[][] imgBlocks;
 
     BlockManager(Game g) {
         this.game = g;
-        this.blockSize = 32;
 
         this.tileImg = loadImg(assetFolder + "blank.png");
         this.targetImg = loadImg(assetFolder + "blankmarked.png");
@@ -45,7 +43,7 @@ public class BlockManager extends JComponent {
 
         for (int row = 0; row < game.getCurrLvl().getGridHeight(); row++) {
             for (int col = 0; col < game.getCurrLvl().getGridLength(); col++) {
-                newBlock(draw, col * blockSize, row * blockSize, paintBlock(col, row));
+                newBlock(draw, col * game.getBlockSize(), row * game.getBlockSize(), paintBlock(col, row));
             }
         }
 
@@ -53,7 +51,7 @@ public class BlockManager extends JComponent {
     }
 
     public void newBlock(Graphics2D g2, int x, int y, BufferedImage image) {
-        g2.drawImage(image, x, y, blockSize, blockSize, null);
+        g2.drawImage(image, x, y, game.getBlockSize(), game.getBlockSize(), null);
     }
 
     public BufferedImage paintBlock(int col, int row) {

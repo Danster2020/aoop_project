@@ -11,7 +11,6 @@ import javax.swing.JComponent;
 public class Block implements Serializable {
 
     private static final long serialVersionUID = 0000000000000000001L;
-    int size;
 
     private boolean isWall;
     private boolean isTile;
@@ -20,7 +19,6 @@ public class Block implements Serializable {
     private boolean hasPlayer;
 
     public Block() {
-        this.size = 32;
 
         this.isWall = false;
         this.isTile = true;
@@ -197,10 +195,5 @@ public class Block implements Serializable {
         }
     }
 
-    /**
-     * @return int
-     */
-    public int getImgSize() {
-        return this.size;
-    }
+
 }
