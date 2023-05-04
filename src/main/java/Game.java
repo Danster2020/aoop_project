@@ -48,6 +48,7 @@ public class Game {
         this.player = new Player(this);
         startLevelEditor();
         loadLevel("level1");
+        menuBar();
 
         // Label
         JLabel mouseLabel = new JLabel();
@@ -118,6 +119,17 @@ public class Game {
         
         jFrame.repaint();
         System.out.println("Level loaded!");
+    }
+
+    public void menuBar() {
+        MenuBar menuBar = new MenuBar();
+        Menu levelMenu = new Menu("Level");
+        menuBar.add(levelMenu);
+        jFrame.setMenuBar(menuBar);
+
+        // Levelmenu
+        MenuItem restartLevel = new MenuItem("Restart");
+        levelMenu.add(restartLevel);
     }
 
     public void startLevelEditor() {
