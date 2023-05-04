@@ -13,6 +13,7 @@ public class Game {
     private Level currentLevel;
     private final int WIDTH, HEIGHT;
     KeyHandler kH;
+    Sound sound;
 
     private Player player;
     private ArrayList<Box> boxes;
@@ -46,6 +47,7 @@ public class Game {
 
         BlockManager bM = new BlockManager(this);
         this.player = new Player(this);
+        sound = new Sound(this);
         startLevelEditor();
         loadLevel("level1");
 
