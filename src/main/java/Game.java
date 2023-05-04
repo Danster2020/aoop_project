@@ -24,6 +24,10 @@ public class Game {
     JButton loadBtn;
     TextArea TextAreaFile;
 
+    //Menu
+    MenuBar menuBar;
+    MenuItem restartLevel;
+
     enum Direction {
         UP,
         DOWN,
@@ -130,8 +134,9 @@ public class Game {
         jFrame.setMenuBar(menuBar);
 
         // Levelmenu
-        MenuItem restartLevel = new MenuItem("Restart");
+        restartLevel = new MenuItem("Restart");
         levelMenu.add(restartLevel);
+        restartLevel.addActionListener(kH);
     }
 
     public void startLevelEditor() {

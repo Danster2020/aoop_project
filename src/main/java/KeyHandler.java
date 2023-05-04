@@ -99,8 +99,15 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (e.getSource() == game.saveBtn) {
             game.getCurrLvl().setName(game.TextAreaFile.getText());
             game.getCurrLvl().saveLevel();
-        } else if (e.getSource() == game.loadBtn) {
+            return;
+        }
+        if (e.getSource() == game.loadBtn) {
             game.loadLevel(game.TextAreaFile.getText());
+            return;
+        }
+        if (e.getSource() == game.restartLevel) {
+            game.loadLevel(game.getCurrLvl().getName());
+            return;
         }
     }
 
