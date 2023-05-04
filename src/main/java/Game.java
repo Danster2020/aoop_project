@@ -129,7 +129,7 @@ public class Game {
 
         // FIXME soundstacking on lvl reload/load
         try {
-            sound.stop();
+            sound.stopMusic();
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -151,7 +151,7 @@ public class Game {
 
         jFrame.repaint();
         jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
-        sound.playAudio(sound.bg_music);
+        sound.playMusic(sound.bg_music);
         System.out.println("Level loaded!");
     }
 
@@ -225,10 +225,9 @@ public class Game {
             startLvlEditor.setLabel("Close Level editor");
             editorFrame.setResizable(false);
             setLvlEditorOn(true);
-            sound.stop();
+            sound.stopMusic();
             loadLevel("blank", "");
-            sound.stop();
-
+            sound.stopMusic();
         } else {
             editorFrame.setVisible(false);
             startLvlEditor.setLabel("Start Level Editor");

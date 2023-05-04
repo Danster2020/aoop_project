@@ -122,7 +122,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             if (game.isCustomLevel) {
                 customPath = "custom/";
             }
-            game.sound.stop();
+            game.sound.stopMusic();
             game.loadLevel(game.getCurrLvl().levelName, customPath);
             System.out.println("Level restarted!");
             return;
