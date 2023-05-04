@@ -9,8 +9,10 @@ import java.util.ArrayList;
 
 public class Game {
 
+    final String GAMENAME;
     JFrame jFrame;
     private Level currentLevel;
+    boolean isCustomLevel;
     private final int WIDTH, HEIGHT;
     KeyHandler kH;
     Sound sound;
@@ -22,7 +24,8 @@ public class Game {
     JFrame editorFrame;
     JButton saveBtn;
     JButton loadBtn;
-    TextArea TextAreaFile;
+    TextField textAreaFile;
+    JCheckBox checkBoxCustomLvl;
 
     // Menu
     MenuBar menuBar;
@@ -40,6 +43,7 @@ public class Game {
     }
 
     public Game() {
+        GAMENAME = "Sokoban";
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
 
@@ -49,17 +53,17 @@ public class Game {
         this.player = new Player(this);
         this.sound = new Sound(this);
         this.isLvlEditorOn = false;
+        this.isCustomLevel = false;
 
         // Frame
-        jFrame = new JFrame("Sokoban");
+        jFrame = new JFrame(GAMENAME);
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
         jFrame.getContentPane().setBackground(Color.BLACK);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
 
         // Init config
         menuBar();
-        loadLevel("level1");
-        sound.playAudio(sound.bg_music);
+        loadLevel("level1", "");
 
         // Label
         JLabel mouseLabel = new JLabel();
@@ -95,6 +99,10 @@ public class Game {
         return boxes;
     }
 
+    public JCheckBox getCheckBoxCustomLvl() {
+        return checkBoxCustomLvl;
+    }
+
     public boolean isLvlEditorOn() {
         return isLvlEditorOn;
     }
@@ -117,10 +125,18 @@ public class Game {
         }
     }
 
-    public void loadLevel(String fileName) {
+    public void loadLevel(String fileName, String customPath) {
+
+        // FIXME soundstacking on lvl reload/load
+        try {
+            sound.stop();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
         ObjectInputStream in = null;
         try {
-            in = new ObjectInputStream(new FileInputStream("../levels/" + fileName + ".dat"));
+            in = new ObjectInputStream(new FileInputStream("../levels/" + customPath + fileName + ".dat"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -134,6 +150,8 @@ public class Game {
         spawnBoxes();
 
         jFrame.repaint();
+        jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
+        sound.playAudio(sound.bg_music);
         System.out.println("Level loaded!");
     }
 
@@ -159,29 +177,63 @@ public class Game {
     public void startLevelEditor(boolean status) {
         // Editor window
 
+        // if start
         if (status) {
             editorFrame = new JFrame("Level editor");
-            editorFrame.setLayout(new BorderLayout());
+            editorFrame.setLayout(null);
             saveBtn = new JButton("Save");
             loadBtn = new JButton("Load");
-            TextAreaFile = new TextArea("");
-            editorFrame.add(TextAreaFile, BorderLayout.CENTER);
-            editorFrame.add(saveBtn, BorderLayout.PAGE_START);
-            editorFrame.add(loadBtn, BorderLayout.PAGE_END);
+            textAreaFile = new TextField("", 20);
+            JLabel textLabel = new JLabel("Name of level");
+            checkBoxCustomLvl = new JCheckBox("Custom level");
+
+            editorFrame.setLayout(new GridBagLayout());
+            GridBagConstraints gBC = new GridBagConstraints();
+
+            gBC.gridx = 0;
+            gBC.gridy = 0;
+            gBC.gridwidth = 1;
+            gBC.gridheight = 1;
+            editorFrame.add(textLabel, gBC);
+
+            gBC.gridx = 0;
+            gBC.gridy = 1;
+            gBC.gridwidth = 2;
+            gBC.gridheight = 1;
+            editorFrame.add(textAreaFile, gBC);
+
+            gBC.gridx = 0;
+            gBC.gridy = 2;
+            gBC.gridwidth = 1;
+            gBC.gridheight = 1;
+            editorFrame.add(checkBoxCustomLvl, gBC);
+
+            gBC.gridx = 0;
+            gBC.gridy = 3;
+            gBC.gridwidth = 1;
+            gBC.gridheight = 1;
+            editorFrame.add(saveBtn, gBC);
+
+            gBC.gridx = 1;
+            gBC.gridy = 3;
+            editorFrame.add(loadBtn, gBC);
             saveBtn.addActionListener(kH);
             loadBtn.addActionListener(kH);
-    
+
             editorFrame.setSize(200, 200);
             editorFrame.setVisible(true);
             startLvlEditor.setLabel("Close Level editor");
+            editorFrame.setResizable(false);
             setLvlEditorOn(true);
+            sound.stop();
+            loadLevel("blank", "");
+            sound.stop();
 
         } else {
             editorFrame.setVisible(false);
             startLvlEditor.setLabel("Start Level Editor");
             setLvlEditorOn(false);
         }
-
 
     }
 

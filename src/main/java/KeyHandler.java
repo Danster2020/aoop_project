@@ -102,18 +102,28 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (game.isLvlEditorOn()) {
 
             if (e.getSource() == game.saveBtn) {
-                game.getCurrLvl().setName(game.TextAreaFile.getText());
+                game.getCurrLvl().setName(game.textAreaFile.getText());
                 game.getCurrLvl().saveLevel();
                 return;
             }
             if (e.getSource() == game.loadBtn) {
-                game.loadLevel(game.TextAreaFile.getText());
+                String customPath = "";
+                if (game.checkBoxCustomLvl.isSelected()) {
+                    customPath = "custom/";
+                }
+
+                game.loadLevel(game.textAreaFile.getText(), customPath);
                 return;
             }
         }
 
         if (e.getSource() == game.restartLevel) {
-            game.loadLevel(game.getCurrLvl().levelName);
+            String customPath = "";
+            if (game.isCustomLevel) {
+                customPath = "custom/";
+            }
+            game.sound.stop();
+            game.loadLevel(game.getCurrLvl().levelName, customPath);
             System.out.println("Level restarted!");
             return;
         }
