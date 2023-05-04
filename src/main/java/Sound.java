@@ -8,7 +8,7 @@ import javax.sound.sampled.Clip;
 public class Sound {
     Game game;
     Clip clip;
-    String soundEffect_Walk, box_Moved, marked_box_placed;
+    String soundEffect_Walk, box_Moved, marked_box_placed, bg_music;
     //URL soundURL[] = new URL[10];
 
     Sound(Game g) {
@@ -16,6 +16,7 @@ public class Sound {
         soundEffect_Walk = "../assets/walk.wav";
         box_Moved = "../assets/box_moved.wav";
         marked_box_placed = "../assets/marked_box_placed.wav";
+        bg_music = "../assets/Pizza_time.mid.wav";
     }
 
     public Sound() {

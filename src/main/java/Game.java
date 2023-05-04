@@ -52,6 +52,7 @@ public class Game {
         BlockManager bM = new BlockManager(this);
         this.player = new Player(this);
         sound = new Sound(this);
+        sound.playAudio(sound.bg_music);
         startLevelEditor();
         loadLevel("level1");
         menuBar();
