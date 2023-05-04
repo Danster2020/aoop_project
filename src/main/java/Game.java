@@ -24,10 +24,13 @@ public class Game {
     JButton loadBtn;
     TextArea TextAreaFile;
 
-    //Menu
+    // Menu
     MenuBar menuBar;
     MenuItem restartLevel;
     MenuItem startLvlEditor;
+
+    // Flags
+    private boolean isLvlEditorOn;
 
     enum Direction {
         UP,
@@ -40,22 +43,23 @@ public class Game {
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
 
-        kH = new KeyHandler(this);
+        BlockManager bM = new BlockManager(this);
+        this.kH = new KeyHandler(this);
+        this.currentLevel = new Level("level1");
+        this.player = new Player(this);
+        this.sound = new Sound(this);
+        this.isLvlEditorOn = false;
 
         // Frame
         jFrame = new JFrame("Sokoban");
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
+        jFrame.getContentPane().setBackground(Color.BLACK);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
 
-        this.currentLevel = new Level("level1");
-
-        currentLevel.printBlocks();
-
-        BlockManager bM = new BlockManager(this);
-        this.player = new Player(this);
-        sound = new Sound(this);
-        sound.playAudio(sound.bg_music);
-        loadLevel("level1");
+        // Init config
         menuBar();
+        loadLevel("level1");
+        sound.playAudio(sound.bg_music);
 
         // Label
         JLabel mouseLabel = new JLabel();
@@ -67,9 +71,7 @@ public class Game {
         jFrame.add(mouseLabel);
         jFrame.add(bM);
 
-        jFrame.getContentPane().setBackground(Color.BLACK);
         jFrame.setVisible(true);
-        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
         System.out.println("Game started!");
     }
 
@@ -91,6 +93,14 @@ public class Game {
 
     public ArrayList<Box> getBoxes() {
         return boxes;
+    }
+
+    public boolean isLvlEditorOn() {
+        return isLvlEditorOn;
+    }
+
+    public void setLvlEditorOn(boolean status) {
+        this.isLvlEditorOn = status;
     }
 
     public void spawnBoxes() {
@@ -123,7 +133,6 @@ public class Game {
         getPlayer().spawnPlayer();
         spawnBoxes();
 
-        
         jFrame.repaint();
         System.out.println("Level loaded!");
     }
@@ -147,21 +156,33 @@ public class Game {
         startLvlEditor.addActionListener(kH);
     }
 
-    public void startLevelEditor() {
+    public void startLevelEditor(boolean status) {
         // Editor window
-        editorFrame = new JFrame("Level editor");
-        editorFrame.setLayout(new BorderLayout());
-        saveBtn = new JButton("Save");
-        loadBtn = new JButton("Load");
-        TextAreaFile = new TextArea("");
-        editorFrame.add(TextAreaFile, BorderLayout.CENTER);
-        editorFrame.add(saveBtn, BorderLayout.PAGE_START);
-        editorFrame.add(loadBtn, BorderLayout.PAGE_END);
-        saveBtn.addActionListener(kH);
-        loadBtn.addActionListener(kH);
 
-        editorFrame.setSize(200, 200);
-        editorFrame.setVisible(true);
+        if (status) {
+            editorFrame = new JFrame("Level editor");
+            editorFrame.setLayout(new BorderLayout());
+            saveBtn = new JButton("Save");
+            loadBtn = new JButton("Load");
+            TextAreaFile = new TextArea("");
+            editorFrame.add(TextAreaFile, BorderLayout.CENTER);
+            editorFrame.add(saveBtn, BorderLayout.PAGE_START);
+            editorFrame.add(loadBtn, BorderLayout.PAGE_END);
+            saveBtn.addActionListener(kH);
+            loadBtn.addActionListener(kH);
+    
+            editorFrame.setSize(200, 200);
+            editorFrame.setVisible(true);
+            startLvlEditor.setLabel("Close Level editor");
+            setLvlEditorOn(true);
+
+        } else {
+            editorFrame.setVisible(false);
+            startLvlEditor.setLabel("Start Level Editor");
+            setLvlEditorOn(false);
+        }
+
+
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
