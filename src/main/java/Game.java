@@ -51,7 +51,7 @@ public class Game {
         GAMENAME = "Sokoban";
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
-        blockSize = 32;
+        blockSize = 48;
 
         BlockManager bM = new BlockManager(this);
         this.kH = new KeyHandler(this);
