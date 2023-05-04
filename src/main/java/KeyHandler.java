@@ -65,12 +65,15 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // System.out.println("You clicked the mouse");
-        System.out.println("x: " + e.getX() + " y: " + e.getY());
-        int col = e.getX() / 32;
-        int row = e.getY() / 32;
-        System.out.println("col: " + col + " Row: " + row);
-        game.getCurrLvl().getBlock(col, row).ToggleBlock();
-        game.jFrame.repaint();
+        // System.out.println("x: " + e.getX() + " y: " + e.getY());
+
+        if (game.isLvlEditorOn()) {
+            int col = e.getX() / 32;
+            int row = e.getY() / 32;
+            System.out.println("col: " + col + " Row: " + row);
+            game.getCurrLvl().getBlock(col, row).ToggleBlock();
+            game.jFrame.repaint();
+        }
     }
 
     @Override
@@ -96,17 +99,26 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == game.saveBtn) {
-            game.getCurrLvl().setName(game.TextAreaFile.getText());
-            game.getCurrLvl().saveLevel();
-            return;
+        if (game.isLvlEditorOn()) {
+
+            if (e.getSource() == game.saveBtn) {
+                game.getCurrLvl().setName(game.TextAreaFile.getText());
+                game.getCurrLvl().saveLevel();
+                return;
+            }
+            if (e.getSource() == game.loadBtn) {
+                game.loadLevel(game.TextAreaFile.getText());
+                return;
+            }
         }
-        if (e.getSource() == game.loadBtn) {
-            game.loadLevel(game.TextAreaFile.getText());
-            return;
-        }
+
         if (e.getSource() == game.restartLevel) {
-            game.loadLevel(game.getCurrLvl().getName());
+            game.loadLevel(game.getCurrLvl().levelName);
+            System.out.println("Level restarted!");
+            return;
+        }
+        if (e.getSource() == game.startLvlEditor) {
+            game.startLevelEditor(!game.isLvlEditorOn());
             return;
         }
     }
