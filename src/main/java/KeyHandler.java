@@ -42,6 +42,9 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             eastPressed = true;
             game.getPlayer().move(Game.Direction.RIGHT);
         }
+        if (keyboardINT == KeyEvent.VK_SPACE) {
+            game.restartLevel();
+        }
         game.jFrame.repaint();
         System.out.println("you pressed " + e.getKeyChar());
     }
@@ -96,7 +99,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
                 return;
             }
             if (e.getSource() == game.loadBtn) {
-                
+
                 if (game.checkBoxCustomLvl.isSelected()) {
                     game.isCustomLevel = true;
                 } else {

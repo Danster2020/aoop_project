@@ -188,7 +188,7 @@ public class Game {
         menuBar.add(levelMenu);
 
         // ##RestartItem
-        restartLevel = new MenuItem("Restart");
+        restartLevel = new MenuItem("Restart (SPACE)");
         restartLevel.addActionListener(kH);
         levelMenu.add(restartLevel);
 
