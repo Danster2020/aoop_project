@@ -70,7 +70,7 @@ public class Game {
 
         // Init config
         menuBar();
-        loadLevel("level1", "");
+        loadLevel("level1", false);
 
         // Label
         JLabel mouseLabel = new JLabel();
@@ -140,8 +140,13 @@ public class Game {
         }
     }
 
-    public void loadLevel(String fileName, String customPath) {
+    public void loadLevel(String fileName, boolean isCustom) {
 
+        String customPath = "";
+        if (isCustom) {
+            customPath = "custom/";
+        }
+        
         // FIXME soundstacking on lvl reload/load
         try {
             sound.stopMusic();
@@ -168,6 +173,10 @@ public class Game {
         jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
         sound.playMusic(sound.bg_music);
         System.out.println("Level loaded!");
+    }
+
+    public void restartLevel() {
+        loadLevel(getCurrLvl().getName(), isCustomLevel);
     }
 
     public void menuBar() {
@@ -255,7 +264,7 @@ public class Game {
             editorFrame.setResizable(false);
             setLvlEditorOn(true);
             sound.stopMusic();
-            loadLevel("blank", "");
+            loadLevel("blank", false);
             sound.stopMusic();
         } else {
             editorFrame.setVisible(false);

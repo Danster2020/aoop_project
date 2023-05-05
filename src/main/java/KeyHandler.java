@@ -96,24 +96,22 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
                 return;
             }
             if (e.getSource() == game.loadBtn) {
-                String customPath = "";
+                
                 if (game.checkBoxCustomLvl.isSelected()) {
-                    customPath = "custom/";
+                    game.isCustomLevel = true;
+                } else {
+                    game.isCustomLevel = false;
                 }
 
-                game.loadLevel(game.textAreaFile.getText(), customPath);
+                game.loadLevel(game.textAreaFile.getText(), game.isCustomLevel);
                 return;
             }
         }
 
         // Menubar
         if (e.getSource() == game.restartLevel) {
-            String customPath = "";
-            if (game.isCustomLevel) {
-                customPath = "custom/";
-            }
             game.sound.stopMusic();
-            game.loadLevel(game.getCurrLvl().levelName, customPath);
+            game.restartLevel();
             System.out.println("Level restarted!");
             return;
         }
