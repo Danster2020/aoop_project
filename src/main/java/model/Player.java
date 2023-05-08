@@ -1,6 +1,9 @@
+package model;
+import controller.Game;
+
 public class Player extends MovableObject {
 
-    Player(Game g) {
+    public Player(Game g) {
         super(g);
     }
 

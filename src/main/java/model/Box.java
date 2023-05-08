@@ -1,8 +1,11 @@
+package model;
 import java.util.PrimitiveIterator.OfDouble;
+
+import controller.Game;
 
 public class Box extends MovableObject {
 
-    Box(Game g) {
+    public Box(Game g) {
         super(g);
     }
 

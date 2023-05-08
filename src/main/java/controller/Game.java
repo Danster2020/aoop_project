@@ -1,6 +1,14 @@
+package controller;
 // package src.main.java;
 
 import javax.swing.*;
+
+import model.Box;
+import model.Level;
+import model.Player;
+import view.BlockManager;
+import view.Sound;
+
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,7 +24,7 @@ public class Game {
     private final int WIDTH, HEIGHT;
     private int blockSize;
     KeyHandler kH;
-    Sound sound;
+    public Sound sound;
 
     private Player player;
     private ArrayList<Box> boxes;
@@ -40,7 +48,7 @@ public class Game {
     // Flags
     private boolean isLvlEditorOn;
 
-    enum Direction {
+    public enum Direction {
         UP,
         DOWN,
         LEFT,

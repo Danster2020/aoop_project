@@ -1,3 +1,4 @@
+package view;
 import java.io.File;
 import java.net.URL;
 
@@ -5,14 +6,19 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import controller.Game;
+
 public class Sound {
     Game game;
     Clip clip;
     Clip musicClip;
-    String soundEffect_Walk, box_Moved, marked_box_placed, bg_music;
+    public String soundEffect_Walk;
     // URL soundURL[] = new URL[10];
+    public String box_Moved;
+    public String marked_box_placed;
+    public String bg_music;
 
-    Sound(Game g) {
+    public Sound(Game g) {
         this.game = g;
         soundEffect_Walk = "../assets/walk.wav";
         box_Moved = "../assets/box_moved.wav";

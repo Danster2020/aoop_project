@@ -1,3 +1,4 @@
+package view;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -7,6 +8,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
+import controller.Game;
+import model.Block;
+
 public class BlockManager extends JComponent {
 
     Game game;
@@ -14,7 +18,7 @@ public class BlockManager extends JComponent {
     String assetFolder = "../assets/";
     BufferedImage[][] imgBlocks;
 
-    BlockManager(Game g) {
+    public BlockManager(Game g) {
         this.game = g;
 
         this.tileImg = loadImg(assetFolder + "blank.png");

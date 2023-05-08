@@ -1,3 +1,4 @@
+package model;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -9,7 +10,7 @@ public class Level implements Serializable {
     Block[][] blockGrid;
     String levelName;
 
-    Level(String lvlName) {
+    public Level(String lvlName) {
 
         this.blockGrid = new Block[20][30]; // [row][col]
 

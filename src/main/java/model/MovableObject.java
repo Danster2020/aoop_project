@@ -1,3 +1,7 @@
+package model;
+import controller.Game;
+import controller.Game.Direction;
+
 public abstract class MovableObject {
 
     private int objCol, objRow;// Player column and row
