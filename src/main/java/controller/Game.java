@@ -44,6 +44,7 @@ public class Game {
         // Init config
         loadLevel("level1", false);
         System.out.println("Game started!");
+        System.out.println("test");
     }
 
     public Level getCurrLvl() {
