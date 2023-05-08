@@ -47,7 +47,7 @@ public class BlockManager extends JComponent {
 
         for (int row = 0; row < game.getCurrLvl().getGridHeight(); row++) {
             for (int col = 0; col < game.getCurrLvl().getGridLength(); col++) {
-                newBlock(draw, col * game.getBlockSize(), row * game.getBlockSize(), paintBlock(col, row));
+                newBlock(draw, col * game.gameView.getBlockSize(), row * game.gameView.getBlockSize(), paintBlock(col, row));
             }
         }
 
@@ -55,7 +55,7 @@ public class BlockManager extends JComponent {
     }
 
     public void newBlock(Graphics2D g2, int x, int y, BufferedImage image) {
-        g2.drawImage(image, x, y, game.getBlockSize(), game.getBlockSize(), null);
+        g2.drawImage(image, x, y, game.gameView.getBlockSize(), game.gameView.getBlockSize(), null);
     }
 
     public BufferedImage paintBlock(int col, int row) {

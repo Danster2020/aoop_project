@@ -46,7 +46,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (keyboardINT == KeyEvent.VK_SPACE) {
             game.restartLevel();
         }
-        game.jFrame.repaint();
+        game.gameView.updateView();
         System.out.println("you pressed " + e.getKeyChar());
     }
 
@@ -66,11 +66,11 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         // System.out.println("x: " + e.getX() + " y: " + e.getY());
 
         if (game.isLvlEditorOn()) {
-            int col = e.getX() / game.getBlockSize();
-            int row = e.getY() / game.getBlockSize();
+            int col = e.getX() / game.gameView.getBlockSize();
+            int row = e.getY() / game.gameView.getBlockSize();
             System.out.println("col: " + col + " Row: " + row);
             game.getCurrLvl().getBlock(col, row).ToggleBlock();
-            game.jFrame.repaint();
+            game.gameView.updateView();
         }
     }
 
@@ -94,47 +94,47 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
 
         if (game.isLvlEditorOn()) {
 
-            if (e.getSource() == game.saveBtn) {
-                game.getCurrLvl().setName(game.textAreaFile.getText());
+            if (e.getSource() == game.gameView.saveBtn) {
+                game.getCurrLvl().setName(game.gameView.textAreaFile.getText());
                 game.getCurrLvl().saveLevel();
                 return;
             }
-            if (e.getSource() == game.loadBtn) {
+            if (e.getSource() == game.gameView.loadBtn) {
 
-                if (game.checkBoxCustomLvl.isSelected()) {
+                if (game.gameView.checkBoxCustomLvl.isSelected()) {
                     game.isCustomLevel = true;
                 } else {
                     game.isCustomLevel = false;
                 }
 
-                game.loadLevel(game.textAreaFile.getText(), game.isCustomLevel);
+                game.loadLevel(game.gameView.textAreaFile.getText(), game.isCustomLevel);
                 return;
             }
         }
 
         // Menubar
-        if (e.getSource() == game.restartLevel) {
-            game.sound.stopMusic();
+        if (e.getSource() == game.gameView.restartLevel) {
+            game.gameView.sound.stopMusic();
             game.restartLevel();
             System.out.println("Level restarted!");
             return;
         }
-        if (e.getSource() == game.startLvlEditor) {
-            game.startLevelEditor(!game.isLvlEditorOn());
+        if (e.getSource() == game.gameView.startLvlEditor) {
+            game.gameView.startLevelEditor(!game.isLvlEditorOn());
             return;
         }
-        if (e.getSource() == game.zoomIn) {
-            game.setBlockSize(game.getBlockSize() + 16);
+        if (e.getSource() == game.gameView.zoomIn) {
+            game.gameView.setBlockSize(game.gameView.getBlockSize() + 16);
             System.out.println("Zoomed in");
-            game.jFrame.repaint();
+            game.gameView.jFrame.repaint();
             return;
         }
 
-        if (e.getSource() == game.zoomOut) {
-            if (game.getBlockSize() >= 32) {
+        if (e.getSource() == game.gameView.zoomOut) {
+            if (game.gameView.getBlockSize() >= 32) {
                 System.out.println("Zoomed out");
-                game.setBlockSize(game.getBlockSize() - 8);
-                game.jFrame.repaint();
+                game.gameView.setBlockSize(game.gameView.getBlockSize() - 8);
+                game.gameView.jFrame.repaint();
             }
             return;
         }

@@ -12,9 +12,9 @@ public class Box extends MovableObject {
     @Override
     public void place(Block block) {
         block.placeBox();
-        game.sound.playSE(game.sound.box_Moved);
+        game.gameView.sound.playSE(game.gameView.sound.box_Moved);
         if (block.isTarget()) {
-            game.sound.playSE(game.sound.marked_box_placed);
+            game.gameView.sound.playSE(game.gameView.sound.marked_box_placed);
         }
     }
 

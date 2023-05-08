@@ -7,9 +7,10 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import controller.Game;
+import controller.GameView;
 
 public class Sound {
-    Game game;
+    GameView game;
     Clip clip;
     Clip musicClip;
     public String soundEffect_Walk;
@@ -18,8 +19,8 @@ public class Sound {
     public String marked_box_placed;
     public String bg_music;
 
-    public Sound(Game g) {
-        this.game = g;
+    public Sound(GameView gameView) {
+        this.game = gameView;
         soundEffect_Walk = "../assets/walk.wav";
         box_Moved = "../assets/box_moved.wav";
         marked_box_placed = "../assets/marked_box_placed.wav";

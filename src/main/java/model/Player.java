@@ -15,7 +15,7 @@ public class Player extends MovableObject {
     @Override
     public void place(Block block) {
         block.placePlayer();
-        game.sound.playSE(game.sound.soundEffect_Walk);
+        game.gameView.sound.playSE(game.gameView.sound.soundEffect_Walk);
     }
 
     public void spawnPlayer() {
