@@ -3,8 +3,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JFrame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,7 +12,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
     public boolean northPressed, southPressed, westPressed, eastPressed, buttonPressed;
     Game game;
 
-    KeyHandler(Game g) {
+    public KeyHandler(Game g) {
         this.game = g;
     }
 

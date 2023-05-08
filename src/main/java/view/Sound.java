@@ -1,13 +1,9 @@
 package view;
 import java.io.File;
-import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
-import controller.Game;
-import controller.GameView;
 
 public class Sound {
     GameView game;

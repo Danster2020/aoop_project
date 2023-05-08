@@ -1,17 +1,9 @@
 package model;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.Serializable;
-
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-
-// package src.main.java;
 
 public class Block implements Serializable {
 
-    private static final long serialVersionUID = 0000000000000000001L;
+    private static final long serialVersionUID = 2L;
 
     private boolean isWall;
     private boolean isTile;

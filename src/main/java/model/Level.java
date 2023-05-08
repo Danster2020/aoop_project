@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Level implements Serializable {
 
-    private static final long serialVersionUID = 0000000000000000001L;
+    private static final long serialVersionUID = 2L;
     Block[][] blockGrid;
     String levelName;
 

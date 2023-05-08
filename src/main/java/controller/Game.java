@@ -1,15 +1,10 @@
 package controller;
-// package src.main.java;
-
-import javax.swing.*;
 
 import model.Box;
 import model.Level;
 import model.Player;
-import view.BlockManager;
-import view.Sound;
+import view.GameView;
 
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -40,10 +35,10 @@ public class Game {
     public Game() {
         GAMENAME = "Sokoban";
         
-        this.currentLevel = new Level("blank_level");
         this.player = new Player(this);
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
+        this.currentLevel = new Level("noname");
         this.gameView = new GameView(this);
 
         // Init config

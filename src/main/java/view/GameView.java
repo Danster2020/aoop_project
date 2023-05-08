@@ -1,10 +1,6 @@
-package controller;
+package view;
 
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -12,17 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
-import model.Box;
-import model.Level;
-import model.Player;
-import view.BlockManager;
-import view.Sound;
+import controller.Game;
+import controller.KeyHandler;
 
 public class GameView {
 
     Game game;
     final String GAMENAME;
-    JFrame jFrame;
+    public JFrame jFrame;
     boolean isCustomLevel;
     private final int WIDTH, HEIGHT;
     public Sound sound;
@@ -32,18 +25,18 @@ public class GameView {
 
     // Editor
     JFrame editorFrame;
-    JButton saveBtn;
-    JButton loadBtn;
-    TextField textAreaFile;
-    JCheckBox checkBoxCustomLvl;
+    public JButton saveBtn;
+    public JButton loadBtn;
+    public TextField textAreaFile;
+    public JCheckBox checkBoxCustomLvl;
     
     // Level Menu
-    MenuItem restartLevel;
-    MenuItem startLvlEditor;
+    public MenuItem restartLevel;
+    public MenuItem startLvlEditor;
 
     // Zoom Men
-    MenuItem zoomIn;
-    MenuItem zoomOut;
+    public MenuItem zoomIn;
+    public MenuItem zoomOut;
 
     // Flags
     private boolean isLvlEditorOn;
@@ -57,6 +50,7 @@ public class GameView {
         blockSize = 48;
 
         this.sound = new Sound(this);
+        this.kH = new KeyHandler(game);
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
 
@@ -71,7 +65,6 @@ public class GameView {
         // Init config
         menuBar();
         BlockManager bM = new BlockManager(game);
-        this.kH = new KeyHandler(game);
 
 
         // Label
