@@ -114,7 +114,6 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (e.getSource() == game.gameView.restartLevel) {
             game.gameView.sound.stopMusic();
             game.restartLevel();
-            System.out.println("Level restarted!");
             return;
         }
         if (e.getSource() == game.gameView.startLvlEditor) {
@@ -124,7 +123,8 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (e.getSource() == game.gameView.zoomIn) {
             game.gameView.setBlockSize(game.gameView.getBlockSize() + 16);
             System.out.println("Zoomed in");
-            game.gameView.jFrame.repaint();
+            game.gameView.updateView();
+
             return;
         }
 
@@ -132,7 +132,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             if (game.gameView.getBlockSize() >= 32) {
                 System.out.println("Zoomed out");
                 game.gameView.setBlockSize(game.gameView.getBlockSize() - 8);
-                game.gameView.jFrame.repaint();
+                game.gameView.updateView();
             }
             return;
         }

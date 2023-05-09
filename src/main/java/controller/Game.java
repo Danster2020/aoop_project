@@ -34,7 +34,7 @@ public class Game {
 
     public Game() {
         GAMENAME = "Sokoban";
-        
+
         this.player = new Player(this);
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
@@ -42,9 +42,8 @@ public class Game {
         this.gameView = new GameView(this);
 
         // Init config
-        loadLevel("level1", false);
+        loadLevel("test123", true);
         System.out.println("Game started!");
-        System.out.println("test");
     }
 
     public Level getCurrLvl() {
@@ -85,7 +84,10 @@ public class Game {
 
         String customPath = "";
         if (isCustom) {
+            isCustomLevel = true;
             customPath = "custom/";
+        } else {
+            isCustomLevel = false;
         }
 
         try {
@@ -117,6 +119,7 @@ public class Game {
 
     public void restartLevel() {
         loadLevel(getCurrLvl().getName(), isCustomLevel);
+        System.out.println("Level restarted!");
     }
 
 }
