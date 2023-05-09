@@ -10,10 +10,13 @@ import javax.swing.WindowConstants;
 
 import controller.Game;
 import controller.KeyHandler;
+import model.GameData;
+import model.Observer;
 
-public class GameView {
+public class GameView implements Observer {
 
     Game game;
+    GameData gameData;
     final String GAMENAME;
     public JFrame jFrame;
     boolean isCustomLevel;
@@ -41,9 +44,10 @@ public class GameView {
     // Flags
     private boolean isLvlEditorOn;
     
-    public GameView(Game g) {
+    public GameView(GameData gameData) {
         
-        this.game = g;
+        this.gameData = gameData;
+        this.game = gameData.game;
         GAMENAME = "Sokoban";
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
@@ -197,5 +201,10 @@ public class GameView {
             game.setLvlEditorOn(false);
         }
 
+    }
+
+    @Override
+    public void update() {
+        jFrame.repaint();
     }
 }

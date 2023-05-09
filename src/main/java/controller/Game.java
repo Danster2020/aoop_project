@@ -1,8 +1,11 @@
 package controller;
 
 import model.Box;
+import model.GameData;
 import model.Level;
 import model.Player;
+import view.TerminalView;
+import view.BlockManager;
 import view.GameView;
 
 import java.io.FileInputStream;
@@ -24,6 +27,7 @@ public class Game {
     private boolean isLvlEditorOn;
 
     public GameView gameView;
+    public GameData gameData;
 
     public enum Direction {
         UP,
@@ -39,11 +43,18 @@ public class Game {
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
         this.currentLevel = new Level("noname");
-        this.gameView = new GameView(this);
+        // this.gameView = new GameView(this);
 
         // Init config
         loadLevel("test123", true);
         System.out.println("Game started!");
+
+        // View observers
+        this.gameData = new GameData(this);
+        gameData.registerObserver(new TerminalView(gameData));
+        
+        this.gameView = new GameView(gameData); // FIXME
+        gameData.registerObserver(this.gameView);
     }
 
     public Level getCurrLvl() {
@@ -91,7 +102,7 @@ public class Game {
         }
 
         try {
-            gameView.sound.stopMusic();
+            // gameView.sound.stopMusic();
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -111,9 +122,9 @@ public class Game {
         getPlayer().spawnPlayer();
         spawnBoxes();
 
-        gameView.updateView();
-        gameView.jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
-        gameView.sound.playMusic(gameView.sound.bg_music);
+        // gameView.updateView();
+        // gameView.jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
+        // gameView.sound.playMusic(gameView.sound.bg_music);
         System.out.println("Level loaded!");
     }
 

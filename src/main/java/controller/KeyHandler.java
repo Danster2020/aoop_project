@@ -44,7 +44,8 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (keyboardINT == KeyEvent.VK_SPACE) {
             game.restartLevel();
         }
-        game.gameView.updateView();
+        // game.gameView.updateView();
+        game.gameData.notifyObservers();
         System.out.println("you pressed " + e.getKeyChar());
     }
 
@@ -124,7 +125,6 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             game.gameView.setBlockSize(game.gameView.getBlockSize() + 16);
             System.out.println("Zoomed in");
             game.gameView.updateView();
-
             return;
         }
 

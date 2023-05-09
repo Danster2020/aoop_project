@@ -50,8 +50,6 @@ public class BlockManager extends JComponent {
                 newBlock(draw, col * game.gameView.getBlockSize(), row * game.gameView.getBlockSize(), paintBlock(col, row));
             }
         }
-
-        game.getCurrLvl().printBlocks();
     }
 
     public void newBlock(Graphics2D g2, int x, int y, BufferedImage image) {
