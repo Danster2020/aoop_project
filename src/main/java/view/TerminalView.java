@@ -11,13 +11,13 @@ public class TerminalView implements Observer {
 
     public TerminalView(GameData gameData) {
         this.gameData = gameData;
-        this.gameData.registerObserver(this);
     }
 
     @Override
     public void update() {
         this.blockGrid = gameData.getLvlGrid();
         printBlocks();
+        gameData.game.checkGameState();
     }
 
     public void printBlocks() {

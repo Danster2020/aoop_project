@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import controller.Game;
@@ -25,27 +26,26 @@ public class GameView implements Observer {
     private int blockSize;
     KeyHandler kH;
 
-
     // Editor
     JFrame editorFrame;
     public JButton saveBtn;
     public JButton loadBtn;
     public TextField textAreaFile;
     public JCheckBox checkBoxCustomLvl;
-    
+
     // Level Menu
     public MenuItem restartLevel;
     public MenuItem startLvlEditor;
 
-    // Zoom Men
+    // Zoom Menu
     public MenuItem zoomIn;
     public MenuItem zoomOut;
 
     // Flags
     private boolean isLvlEditorOn;
-    
+
     public GameView(GameData gameData) {
-        
+
         this.gameData = gameData;
         this.game = gameData.game;
         GAMENAME = "Sokoban";
@@ -58,7 +58,6 @@ public class GameView implements Observer {
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
 
-
         // Frame
         jFrame = new JFrame(GAMENAME);
         jFrame.setSize(WIDTH, HEIGHT); // 960x640 is enoguht to cover 60 levels in original Sokoban
@@ -69,7 +68,6 @@ public class GameView implements Observer {
         // Init config
         menuBar();
         BlockManager bM = new BlockManager(game);
-
 
         // Label
         JLabel mouseLabel = new JLabel();
@@ -196,11 +194,36 @@ public class GameView implements Observer {
             game.loadLevel("blank", false);
             sound.stopMusic();
         } else {
+            if (editorFrame == null) {
+                return;
+            }
             editorFrame.setVisible(false);
             startLvlEditor.setLabel("Start Level Editor");
             game.setLvlEditorOn(false);
         }
 
+    }
+
+    public void showGameWonPrompt() {
+
+        if (game.isLevelComplete) {
+            return;
+        }
+
+        game.isLevelComplete = true;
+
+        JOptionPane.showMessageDialog(jFrame,
+                "You completed the level!",
+                game.getGameName(),
+                JOptionPane.PLAIN_MESSAGE);
+
+        
+
+
+        String currLvlName = game.getCurrLvl().getName();
+        int currLvlNr = Integer.parseInt(currLvlName.replaceAll("[^0-9]", ""));
+        String nextLvl = "level" + (currLvlNr + 1);
+        game.loadLevel(nextLvl, false);
     }
 
     @Override

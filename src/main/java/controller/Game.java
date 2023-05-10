@@ -1,5 +1,6 @@
 package controller;
 
+import model.Block;
 import model.Box;
 import model.GameData;
 import model.Level;
@@ -28,6 +29,7 @@ public class Game {
 
     public GameView gameView;
     public GameData gameData;
+    public boolean isLevelComplete;
 
     public enum Direction {
         UP,
@@ -43,18 +45,21 @@ public class Game {
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
         this.currentLevel = new Level("noname");
+        this.gameData = new GameData(this);
+        this.isLevelComplete = false;
+
         // this.gameView = new GameView(this);
 
-        // Init config
-        loadLevel("test123", true);
-        System.out.println("Game started!");
+        // this is a required observer to run the game
+        this.gameView = new GameView(gameData);
+        gameData.registerObserver(this.gameView);
 
         // View observers
-        this.gameData = new GameData(this);
         gameData.registerObserver(new TerminalView(gameData));
-        
-        this.gameView = new GameView(gameData); // FIXME
-        gameData.registerObserver(this.gameView);
+
+        // Init config
+        loadLevel("level1", false);
+        System.out.println("Game started!");
     }
 
     public Level getCurrLvl() {
@@ -63,6 +68,10 @@ public class Game {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public String getGameName() {
+        return GAMENAME;
     }
 
     public ArrayList<Box> getBoxes() {
@@ -91,6 +100,24 @@ public class Game {
         }
     }
 
+    public void checkGameState() {
+
+        if (isLvlEditorOn) {
+            return;
+        }
+
+        for (Block[] row : currentLevel.getGrid()) {
+            for (Block block : row) {
+                if (block.isTarget() && !block.hasBox()) {
+                    return;
+                }
+            }
+        }
+
+        gameView.showGameWonPrompt();
+        System.out.println("game won!");
+    }
+
     public void loadLevel(String fileName, boolean isCustom) {
 
         String customPath = "";
@@ -101,30 +128,33 @@ public class Game {
             isCustomLevel = false;
         }
 
-        try {
-            // gameView.sound.stopMusic();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-
         ObjectInputStream in = null;
+        String fullPath = "../levels/" + customPath + fileName + ".dat";
         try {
-            in = new ObjectInputStream(new FileInputStream("../levels/" + customPath + fileName + ".dat"));
+            in = new ObjectInputStream(new FileInputStream(fullPath));
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Could not find: " + fullPath + "when loading level!");
+            return;
         }
 
         try {
             currentLevel = (Level) in.readObject();
+            in.close();
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Could not convert/load level file!");
+            return;
         }
+        isLevelComplete = false;
         getPlayer().spawnPlayer();
         spawnBoxes();
 
-        // gameView.updateView();
         // gameView.jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
-        // gameView.sound.playMusic(gameView.sound.bg_music);
+
+        gameData.notifyObservers();
+        gameView.sound.stopMusic(); // stops current music if any
+        gameView.sound.playMusic(gameView.sound.bg_music);
         System.out.println("Level loaded!");
     }
 

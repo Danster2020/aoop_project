@@ -44,8 +44,6 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (keyboardINT == KeyEvent.VK_SPACE) {
             game.restartLevel();
         }
-        // game.gameView.updateView();
-        game.gameData.notifyObservers();
         System.out.println("you pressed " + e.getKeyChar());
     }
 
@@ -69,7 +67,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             int row = e.getY() / game.gameView.getBlockSize();
             System.out.println("col: " + col + " Row: " + row);
             game.getCurrLvl().getBlock(col, row).ToggleBlock();
-            game.gameView.updateView();
+            game.gameData.notifyObservers();
         }
     }
 
@@ -124,7 +122,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
         if (e.getSource() == game.gameView.zoomIn) {
             game.gameView.setBlockSize(game.gameView.getBlockSize() + 16);
             System.out.println("Zoomed in");
-            game.gameView.updateView();
+            game.gameData.notifyObservers();
             return;
         }
 
@@ -132,7 +130,7 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
             if (game.gameView.getBlockSize() >= 32) {
                 System.out.println("Zoomed out");
                 game.gameView.setBlockSize(game.gameView.getBlockSize() - 8);
-                game.gameView.updateView();
+                game.gameData.notifyObservers();
             }
             return;
         }
