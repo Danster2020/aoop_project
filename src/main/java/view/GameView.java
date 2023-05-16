@@ -1,6 +1,10 @@
 package view;
 
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -224,6 +228,19 @@ public class GameView implements Observer {
         int currLvlNr = Integer.parseInt(currLvlName.replaceAll("[^0-9]", ""));
         String nextLvl = "level" + (currLvlNr + 1);
         game.loadLevel(nextLvl, false);
+    }
+
+    public String getSetting(String key) {
+        Properties prop = new Properties();
+        String fileName = "settings.config";
+        try (FileInputStream file = new FileInputStream(fileName)) {
+            prop.load(file);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return prop.getProperty(key);
     }
 
     @Override

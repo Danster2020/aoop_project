@@ -1,4 +1,5 @@
 package view;
+
 import java.io.File;
 
 import javax.sound.sampled.AudioInputStream;
@@ -18,7 +19,11 @@ public class Sound {
     public Sound(GameView gameView) {
         this.game = gameView;
         soundEffect_Walk = "../assets/walk.wav";
-        box_Moved = "../assets/box_moved.wav";
+        if (game.getSetting("easter_egg").equals("true")) {
+            box_Moved = "../assets/pipe.wav";
+        } else {
+            box_Moved = "../assets/box_moved.wav";
+        }
         marked_box_placed = "../assets/marked_box_placed.wav";
         bg_music = "../assets/Pizza_time.mid.wav";
 
@@ -42,7 +47,6 @@ public class Sound {
         }
     }
 
-    
     public void setMusicFile(String soundName) {
 
         try {
@@ -130,6 +134,5 @@ public class Sound {
     // setFile(soundName);
     // play();
     // }
-
 
 }

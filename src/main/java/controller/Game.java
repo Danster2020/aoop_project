@@ -11,9 +11,11 @@ import view.BlockManager;
 import view.GameView;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class Game {
 
@@ -54,7 +56,6 @@ public class Game {
         // this is a required observer to run the game
         this.gameView = new GameView(gameData);
         gameData.registerObserver(this.gameView);
-        
 
         // View observers
         gameData.registerObserver(new TerminalView(gameData));
@@ -165,5 +166,7 @@ public class Game {
         loadLevel(getCurrLvl().getName(), isCustomLevel);
         System.out.println("Level restarted!");
     }
+
+
 
 }
