@@ -16,7 +16,7 @@ import model.Observer;
 
 public class GameView implements Observer {
 
-    Game game;
+    public Game game;
     GameData gameData;
     final String GAMENAME;
     public JFrame jFrame;
@@ -54,7 +54,6 @@ public class GameView implements Observer {
         blockSize = 48;
 
         this.sound = new Sound(this);
-        this.kH = new KeyHandler(game);
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
 
@@ -66,8 +65,9 @@ public class GameView implements Observer {
         jFrame.setLocationRelativeTo(null);
 
         // Init config
-        menuBar();
         BlockManager bM = new BlockManager(game);
+        this.kH = new KeyHandler(this);
+        menuBar();
 
         // Label
         JLabel mouseLabel = new JLabel();
@@ -75,10 +75,10 @@ public class GameView implements Observer {
         mouseLabel.addMouseListener(kH); // sets mouse coordinates to be relative to canvas area
 
         // Adds components
-        jFrame.addKeyListener(kH);
         jFrame.add(mouseLabel);
         jFrame.add(bM);
 
+        jFrame.setIconImage(bM.boxImg);
         jFrame.setVisible(true);
     }
 

@@ -53,6 +53,7 @@ public class Game {
         // this is a required observer to run the game
         this.gameView = new GameView(gameData);
         gameData.registerObserver(this.gameView);
+        
 
         // View observers
         gameData.registerObserver(new TerminalView(gameData));

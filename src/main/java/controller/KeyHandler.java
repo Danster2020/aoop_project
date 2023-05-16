@@ -1,55 +1,59 @@
 package controller;
+
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import view.GameView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class KeyHandler implements KeyListener, MouseListener, ActionListener {
+public class KeyHandler implements MouseListener, ActionListener {
+
+    public enum inputSignal {
+        INPUT_UP,
+        INPUT_DOWN,
+        INPUT_LEFT,
+        INPUT_RIGHT,
+        INPUT_RESTART,
+    }
 
     public boolean northPressed, southPressed, westPressed, eastPressed, buttonPressed;
-    Game game;
+    public Game game;
 
-    public KeyHandler(Game g) {
-        this.game = g;
+    public KeyHandler(GameView view) {
+
+        this.game = view.game;
+
+        // NEW
+        // InputController inputController = new Mouse(view.jFrame, this);
+        new Keyboard(view, this);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // keyTyped = Invoked when a key is typed. Uses KeyChar, char output.
-    }
+    // received signal from controller
+    public void controllerAction(inputSignal signal) {
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int keyboardINT = e.getKeyCode();
-
-        if (keyboardINT == KeyEvent.VK_W || keyboardINT == KeyEvent.VK_UP) {
-            northPressed = true;
-            game.getPlayer().move(Game.Direction.UP);
+        switch (signal) {
+            case INPUT_UP:
+                game.getPlayer().move(Game.Direction.UP);
+                break;
+            case INPUT_DOWN:
+                game.getPlayer().move(Game.Direction.DOWN);
+                break;
+            case INPUT_LEFT:
+                game.getPlayer().move(Game.Direction.LEFT);
+                break;
+            case INPUT_RIGHT:
+                game.getPlayer().move(Game.Direction.RIGHT);
+                break;
+            case INPUT_RESTART:
+                game.restartLevel();
+                break;
+            default:
+                break;
         }
-        if (keyboardINT == KeyEvent.VK_S || keyboardINT == KeyEvent.VK_DOWN) {
-            southPressed = true;
-            game.getPlayer().move(Game.Direction.DOWN);
-        }
-        if (keyboardINT == KeyEvent.VK_A || keyboardINT == KeyEvent.VK_LEFT) {
-            westPressed = true;
-            game.getPlayer().move(Game.Direction.LEFT);
-        }
-        if (keyboardINT == KeyEvent.VK_D || keyboardINT == KeyEvent.VK_RIGHT) {
-            eastPressed = true;
-            game.getPlayer().move(Game.Direction.RIGHT);
-        }
-        if (keyboardINT == KeyEvent.VK_SPACE) {
-            game.restartLevel();
-        }
-        System.out.println("you pressed " + e.getKeyChar());
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 
     @Override
@@ -78,12 +82,10 @@ public class KeyHandler implements KeyListener, MouseListener, ActionListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // Enters Frame Window
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // Exist Frame Window
     }
 
     @Override
