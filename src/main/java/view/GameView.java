@@ -11,13 +11,13 @@ import javax.swing.WindowConstants;
 
 import controller.Game;
 import controller.KeyHandler;
-import model.GameData;
+import model.GameDataPublisher;
 import model.Observer;
 
 public class GameView implements Observer {
 
     public Game game;
-    GameData gameData;
+    GameDataPublisher gameData;
     final String GAMENAME;
     public JFrame jFrame;
     boolean isCustomLevel;
@@ -44,7 +44,7 @@ public class GameView implements Observer {
     // Flags
     private boolean isLvlEditorOn;
 
-    public GameView(GameData gameData) {
+    public GameView(GameDataPublisher gameData) {
 
         this.gameData = gameData;
         this.game = gameData.game;

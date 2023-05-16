@@ -2,10 +2,11 @@ package controller;
 
 import model.Block;
 import model.Box;
-import model.GameData;
+import model.GameDataPublisher;
 import model.Level;
 import model.Player;
 import view.TerminalView;
+import view.WindowTextView;
 import view.BlockManager;
 import view.GameView;
 
@@ -28,7 +29,7 @@ public class Game {
     private boolean isLvlEditorOn;
 
     public GameView gameView;
-    public GameData gameData;
+    public GameDataPublisher gameData;
     public boolean isLevelComplete;
 
     public enum Direction {
@@ -45,7 +46,7 @@ public class Game {
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
         this.currentLevel = new Level("noname");
-        this.gameData = new GameData(this);
+        this.gameData = new GameDataPublisher(this);
         this.isLevelComplete = false;
 
         // this.gameView = new GameView(this);
@@ -57,6 +58,7 @@ public class Game {
 
         // View observers
         gameData.registerObserver(new TerminalView(gameData));
+        gameData.registerObserver(new WindowTextView(gameData));
 
         // Init config
         loadLevel("level1", false);

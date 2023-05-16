@@ -1,6 +1,6 @@
 package model;
 
-public interface Subject {
+public interface Publisher {
     void registerObserver(Observer observer);
     void unregisterObserver(Observer observer);
     void notifyObservers();
