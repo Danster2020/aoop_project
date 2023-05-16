@@ -4,4 +4,7 @@
 
 
 #### Notes
+to run, use:
+`java main`
+in src/main/bin
 [jpanel-vs-jframe](https://www.educba.com/jpanel-vs-jframe/)
