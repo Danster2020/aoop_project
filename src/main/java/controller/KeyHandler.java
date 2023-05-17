@@ -54,6 +54,7 @@ public class KeyHandler implements MouseListener, ActionListener {
             default:
                 break;
         }
+        game.checkGameState();
     }
 
     @Override

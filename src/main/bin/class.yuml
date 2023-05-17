@@ -1,0 +1,47 @@
+// {type:class}
+// {direction:topDown}
+// [note: You can stick notes on diagrams too!{bg:cornsilk}]
+// [Customer|Forename;Surname;Email|Save()]
+// [Order]++*-*>[LineItem]
+// [Order]-1>[DeliveryMethod]
+// [Order]*-*>[Product|EAN_Code|promo_price()]
+// [Category]<->[Product]
+// [DeliveryMethod]^[National]
+// [DeliveryMethod]^[International]
+
+// ====NOTES====
+// Class 	[Customer]
+// Directional 	[Customer]->[Order]
+// Bidirectional 	[Customer]<->[Order]
+// Aggregation 	[Customer]+-[Order] or [Customer]<>-[Order]
+// Composition 	[Customer]++-[Order]
+// Inheritance 	[Customer]^[Cool Customer]
+// Dependencies 	[Customer]uses-.->[PaymentStrategy]
+// Cardinality 	[Customer]<1-1..2>[Address]
+// Labels 	[Person]customer-billingAddress[Address]
+// Notes 	[Address]-[note: Value Object]
+// Full Class 	[Customer|Forename;Surname;Email|Save()]
+// Color splash 	[Customer{bg:orange}]<>1->\*[Order{bg:green}]
+
+// [Game|+gameView;+gameData;+isLevelComplete|getCurrLvl();getPlayer();getGameName();getBoxes();isLvlEditorOn();setLvlEditorOn()]
+[Game]<-1..*[GameView]
+[Game]<-1[Level]
+[Game]<-[<<MovableObject>>]
+[Game]<-[GameDataPublisher]
+
+[GameDataPublisher]^[TerminalView]
+[GameDataPublisher]^[WindowView]
+
+[GameView]<>1-1[BlockManager]
+[GameView]<>-[KeyHandler]
+
+[KeyHandler]<>1-*[<<Inputcontroller>>]
+[<<Inputcontroller>>]^[Keyboard]
+
+[<<MovableObject>>]^[Player]
+[<<MovableObject>>]^[Box]
+
+[Level]<>1-blocks 600[Block]
+
+// [MovableObject]<-[Box]
+// [MovableObject]<-[Player]

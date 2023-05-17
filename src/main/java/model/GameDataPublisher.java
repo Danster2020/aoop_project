@@ -60,7 +60,6 @@ public class GameDataPublisher implements Publisher {
 
     @Override
     public void notifyObservers() {
-        game.checkGameState();
         for (Observer observer : observers) {
             observer.update();
         }
