@@ -25,7 +25,8 @@ public class Sound {
             box_Moved = "../assets/box_moved.wav";
         }
         marked_box_placed = "../assets/marked_box_placed.wav";
-        bg_music = "../assets/Pizza_time.mid.wav";
+
+        bg_music = "../assets/" + game.getSetting("music_track") + ".wav";
 
     }
 
