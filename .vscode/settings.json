@@ -2,7 +2,6 @@
     "java.debug.settings.onBuildFailureProceed": true,
     "java.project.outputPath": "src/main/bin",
     "java.project.sourcePaths": [
-        "src/main/java",
-        "."
+        "src/main/java"
     ]
 }

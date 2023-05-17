@@ -43,7 +43,6 @@ public class Game {
 
     public Game() {
         GAMENAME = "Sokoban";
-
         this.player = new Player(this);
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
@@ -51,15 +50,13 @@ public class Game {
         this.gameData = new GameDataPublisher(this);
         this.isLevelComplete = false;
 
-        // this.gameView = new GameView(this);
-
         // this is a required observer to run the game
         this.gameView = new GameView(gameData);
         gameData.registerObserver(this.gameView);
 
         // View observers
         gameData.registerObserver(new TerminalView(gameData));
-        gameData.registerObserver(new WindowTextView(gameData));
+        // gameData.registerObserver(new WindowTextView(gameData));
 
         // Init config
         loadLevel("level1", false);
@@ -154,7 +151,7 @@ public class Game {
         getPlayer().spawnPlayer();
         spawnBoxes();
 
-        // gameView.jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
+        gameView.jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
 
         gameData.notifyObservers();
         gameView.sound.stopMusic(); // stops current music if any
@@ -166,7 +163,4 @@ public class Game {
         loadLevel(getCurrLvl().getName(), isCustomLevel);
         System.out.println("Level restarted!");
     }
-
-
-
 }
