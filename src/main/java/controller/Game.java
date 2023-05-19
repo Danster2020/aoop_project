@@ -42,6 +42,7 @@ public class Game {
     }
 
     public Game() {
+        System.out.println("starting game...");
         GAMENAME = "Sokoban";
         this.player = new Player(this);
         this.isLvlEditorOn = false;
