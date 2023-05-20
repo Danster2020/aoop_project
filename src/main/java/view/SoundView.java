@@ -6,34 +6,47 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Sound {
-    GameView game;
-    Clip clip;
-    Clip musicClip;
-    public String soundEffect_Walk;
-    // URL soundURL[] = new URL[10];
-    public String box_Moved;
-    public String marked_box_placed;
-    public String bg_music;
+import model.Block;
+import model.Event;
+import model.GameDataPublisher;
+import model.Observer;
 
-    public Sound(GameView gameView) {
-        this.game = gameView;
-        soundEffect_Walk = "../assets/walk.wav";
-        if (game.getSetting("easter_egg").equals("true")) {
+public class SoundView implements Observer {
+    private GameDataPublisher gameData;
+    private Block[][] blockGrid;
+
+    // SOUND
+    private GameView gameView;
+    private Clip clip;
+    private Clip musicClip;
+    private String playerWalked;
+    private String box_Moved;
+    private String markedBoxPlaced;
+    private String levelCompleted;
+    private String bg_music;
+
+    public SoundView(GameDataPublisher gameData) {
+        this.gameData = gameData;
+        this.gameView = gameData.game.gameView;
+
+        // SOUND
+        playerWalked = "../assets/walk.wav";
+        markedBoxPlaced = "../assets/marked_box_placed.wav";
+        levelCompleted = "../assets/collect.wav";
+        bg_music = "../assets/" + gameView.getSetting("music_track") + ".wav";
+
+        if (gameView.getSetting("easter_egg").equals("true")) {
             box_Moved = "../assets/pipe.wav";
         } else {
             box_Moved = "../assets/box_moved.wav";
         }
-        marked_box_placed = "../assets/marked_box_placed.wav";
-
-        bg_music = "../assets/" + game.getSetting("music_track") + ".wav";
 
     }
 
-    // public Sound() {
-    // //soundURL[0] = getClass().getResource("walk_sound.mp3");
-    // System.out.println("helo");
-    // }
+    public void printBlocks() {
+
+        System.out.println(gameData.lvlGridToString());
+    }
 
     public void setFile(String soundName) {
 
@@ -97,43 +110,31 @@ public class Sound {
 
     }
 
-    // public void setFile(String soundName) {
-    // try {
-    // File file = new File(soundName);
-    // System.out.println(file);
-    // AudioInputStream ais = AudioSystem.getAudioInputStream(file);
-    // clip = AudioSystem.getClip();
-    // clip.open(ais);
-    // } catch (Exception e) {
+    @Override
+    public void update(Event event) {
 
-    // }
-    // }
+        switch (event) {
+            case PLAYER_MOVED:
+                playSE(playerWalked);
+                break;
+            case BOX_MOVED:
+                playSE(box_Moved);
+                break;
+            case BOX_MOVED_ON_TARGET:
+                playSE(markedBoxPlaced);
+                break;
+            case LVL_LOADED:
+                stopMusic();
+                playMusic();
+                break;
+            case LVL_COMPLETE:
+                playSE(levelCompleted);
+                break;
 
-    // public void play() {
-    // clip.start();
-    // }
+            default:
+                break;
+        }
 
-    // public void loop() {
-    // clip.loop(Clip.LOOP_CONTINUOUSLY);
-    // }
-
-    // public void stop() {
-    // clip.stop();
-    // }
-
-    // public void playAudio(String soundName) {
-    // setFile(soundName);
-    // play();
-    // loop();
-    // }
-
-    // public void stopAudio() {
-    // stop();
-    // }
-
-    // public void playSE(String soundName) {
-    // setFile(soundName);
-    // play();
-    // }
+    }
 
 }

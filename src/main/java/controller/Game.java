@@ -2,6 +2,7 @@ package controller;
 
 import model.Block;
 import model.Box;
+import model.Event;
 import model.GameDataPublisher;
 import model.Level;
 import model.Player;
@@ -9,6 +10,7 @@ import view.TerminalView;
 import view.WindowTextView;
 import view.BlockManager;
 import view.GameView;
+import view.SoundView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -57,6 +59,7 @@ public class Game {
 
         // View observers
         gameData.registerObserver(new TerminalView(gameData));
+        gameData.registerObserver(new SoundView(gameData));
         // gameData.registerObserver(new WindowTextView(gameData));
 
         // Init config
@@ -116,6 +119,7 @@ public class Game {
             }
         }
 
+        gameData.notifyObservers(Event.LVL_COMPLETE);
         gameView.showGameWonPrompt();
         System.out.println("game won!");
     }
@@ -154,9 +158,7 @@ public class Game {
 
         gameView.jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
 
-        gameData.notifyObservers();
-        gameView.sound.stopMusic(); // stops current music if any
-        gameView.sound.playMusic(gameView.sound.bg_music);
+        gameData.notifyObservers(Event.LVL_LOADED);
         System.out.println("Level loaded!");
     }
 
