@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import model.Event;
 import view.GameView;
 
 import java.awt.event.ActionEvent;
@@ -72,7 +73,7 @@ public class KeyHandler implements MouseListener, ActionListener {
             int row = e.getY() / game.gameView.getBlockSize();
             System.out.println("col: " + col + " Row: " + row);
             game.getCurrLvl().getBlock(col, row).ToggleBlock();
-            game.gameData.notifyObservers();
+            game.gameData.notifyObservers(Event.NOTHING);
         }
     }
 
@@ -114,7 +115,6 @@ public class KeyHandler implements MouseListener, ActionListener {
 
         // Menubar
         if (e.getSource() == game.gameView.restartLevel) {
-            game.gameView.sound.stopMusic();
             game.restartLevel();
             return;
         }
@@ -124,16 +124,16 @@ public class KeyHandler implements MouseListener, ActionListener {
         }
         if (e.getSource() == game.gameView.zoomIn) {
             game.gameView.setBlockSize(game.gameView.getBlockSize() + 16);
+            game.gameData.notifyObservers(Event.ZOOM_IN);
             System.out.println("Zoomed in");
-            game.gameData.notifyObservers();
             return;
         }
 
         if (e.getSource() == game.gameView.zoomOut) {
             if (game.gameView.getBlockSize() >= 32) {
-                System.out.println("Zoomed out");
                 game.gameView.setBlockSize(game.gameView.getBlockSize() - 8);
-                game.gameData.notifyObservers();
+                game.gameData.notifyObservers(Event.ZOOM_OUT);
+                System.out.println("Zoomed out");
             }
             return;
         }

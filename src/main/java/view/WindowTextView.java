@@ -29,7 +29,7 @@ public class WindowTextView implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(model.Event event) {
         this.blockGrid = gameData.getLvlGrid();
         text.setText(gameData.lvlGridToString());
         frame.pack();

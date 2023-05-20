@@ -64,7 +64,7 @@ public abstract class MovableObject {
         remove(source);
         objCol = newCol;
         objRow = newRow;
-        game.gameData.notifyObservers();
+        game.gameData.notifyObservers(Event.NOTHING);
         return true;
     }
 

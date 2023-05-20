@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+import org.w3c.dom.events.Event;
+
 import controller.Game;
 import controller.KeyHandler;
 import model.GameDataPublisher;
@@ -26,7 +28,7 @@ public class GameView implements Observer {
     public JFrame jFrame;
     boolean isCustomLevel;
     private final int WIDTH, HEIGHT;
-    public Sound sound;
+    // public Sound sound;
     private int blockSize;
     KeyHandler kH;
 
@@ -57,7 +59,7 @@ public class GameView implements Observer {
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
         blockSize = 48;
 
-        this.sound = new Sound(this);
+        // this.sound = new Sound(this);
         this.isLvlEditorOn = false;
         this.isCustomLevel = false;
 
@@ -194,9 +196,7 @@ public class GameView implements Observer {
             startLvlEditor.setLabel("Close Level editor");
             editorFrame.setResizable(false);
             game.setLvlEditorOn(true);
-            sound.stopMusic();
             game.loadLevel("blank", false);
-            sound.stopMusic();
         } else {
             if (editorFrame == null) {
                 return;
@@ -221,9 +221,6 @@ public class GameView implements Observer {
                 game.getGameName(),
                 JOptionPane.PLAIN_MESSAGE);
 
-        
-
-
         String currLvlName = game.getCurrLvl().getName();
         int currLvlNr = Integer.parseInt(currLvlName.replaceAll("[^0-9]", ""));
         String nextLvl = "level" + (currLvlNr + 1);
@@ -244,7 +241,7 @@ public class GameView implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(model.Event event) {
         jFrame.repaint();
     }
 }

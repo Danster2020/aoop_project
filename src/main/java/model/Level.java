@@ -40,33 +40,6 @@ public class Level implements Serializable {
         this.blockGrid[row][col] = data;
     }
 
-    // public void printBlocks() {
-    //     System.out.print("[");
-    //     for (Block[] row : blockGrid) {
-    //         System.out.println("");
-    //         for (Block block : row) {
-    //             String string = "";
-    //             if (block.hasPlayer()) {
-    //                 string = "P";
-    //             } else if (block.hasTargetBox()) {
-    //                 string = "TB";
-    //             } else if (block.hasBox()) {
-    //                 string = "B";
-    //             } else if (block.isTarget()) {
-    //                 string = "T";
-    //             } else if (block.isWall()) {
-    //                 string = "W";
-    //             } else if (block.isTile()) {
-    //                 string = "-";
-    //             } else {
-    //                 string = "null";
-    //             }
-    //             System.out.print(string + " ");
-    //         }
-    //     }
-    //     System.out.println("\n]");
-    // }
-
     public int getGridLength() {
         return this.blockGrid[0].length;
     }

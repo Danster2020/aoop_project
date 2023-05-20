@@ -14,10 +14,9 @@ public class TerminalView implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(model.Event event) {
         this.blockGrid = gameData.getLvlGrid();
         printBlocks();
-        // gameData.game.checkGameState();
     }
 
     public void printBlocks() {

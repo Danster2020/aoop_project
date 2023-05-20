@@ -9,6 +9,10 @@ public class GameDataPublisher implements Publisher {
     public Game game;
     private ArrayList<Observer> observers;
 
+    enum test {
+        PLAYER_MOVE
+    }
+
     public GameDataPublisher(Game g) {
         this.game = g;
         observers = new ArrayList<>();
@@ -58,10 +62,10 @@ public class GameDataPublisher implements Publisher {
         observers.remove(observer);
     }
 
-    @Override
-    public void notifyObservers() {
+    // @Override
+    public void notifyObservers(Event event) {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(event);
         }
     }
 }
