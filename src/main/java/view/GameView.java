@@ -253,18 +253,7 @@ public class GameView implements Observer {
         game.loadLevel(nextLvl, false);
     }
 
-    public String getSetting(String key) {
-        Properties prop = new Properties();
-        String fileName = "settings.config";
-        try (FileInputStream file = new FileInputStream(fileName)) {
-            prop.load(file);
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        return prop.getProperty(key);
-    }
+
 
     @Override
     public void update(model.Event event) {

@@ -6,6 +6,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import controller.Game;
 import model.Block;
 import model.Event;
 import model.GameDataPublisher;
@@ -15,6 +16,7 @@ public class SoundView implements Observer {
     private GameDataPublisher gameData;
 
     // SOUND
+    private Game game;
     private GameView gameView;
     private Clip clip;
     private Clip musicClip;
@@ -26,15 +28,16 @@ public class SoundView implements Observer {
 
     public SoundView(GameDataPublisher gameData) {
         this.gameData = gameData;
+        this.game = gameData.game;
         this.gameView = gameData.game.gameView;
 
         // SOUND
         playerWalked = "../assets/walk.wav";
         markedBoxPlaced = "../assets/marked_box_placed.wav";
         levelCompleted = "../assets/collect.wav";
-        bg_music = "../assets/" + gameView.getSetting("music_track") + ".wav";
+        bg_music = "../assets/" + game.getSetting("music_track") + ".wav";
 
-        if (gameView.getSetting("easter_egg").equals("true")) {
+        if (game.getSetting("easter_egg").equals("true")) {
             box_Moved = "../assets/pipe.wav";
         } else {
             box_Moved = "../assets/box_moved.wav";

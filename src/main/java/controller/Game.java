@@ -223,4 +223,17 @@ public class Game {
         loadLevel(getCurrLvl().getName(), isCustomLevel);
         System.out.println("Level restarted!");
     }
+
+    public String getSetting(String key) {
+        Properties prop = new Properties();
+        String fileName = "settings.config";
+        try (FileInputStream file = new FileInputStream(fileName)) {
+            prop.load(file);
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return prop.getProperty(key);
+    }
 }

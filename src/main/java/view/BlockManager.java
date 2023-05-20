@@ -21,11 +21,18 @@ public class BlockManager extends JComponent {
     public BlockManager(Game g) {
         this.game = g;
 
+        if (game.getSetting("easter_egg").equals("true")) {
+            this.boxImg = loadImg(assetFolder + "pipe.png");
+            this.BoxTargetImg = loadImg(assetFolder + "pipe_marked.png");
+        } else {
+            this.boxImg = loadImg(assetFolder + "crate_cube.png");
+            this.BoxTargetImg = loadImg(assetFolder + "crate_cube_marked.png");
+        }
+
         this.tileImg = loadImg(assetFolder + "blank.png");
         this.targetImg = loadImg(assetFolder + "blankmarked.png");
         this.wallImg = loadImg(assetFolder + "wall.png");
-        this.boxImg = loadImg(assetFolder + "crate_cube.png");
-        this.BoxTargetImg = loadImg(assetFolder + "crate_cube_marked.png");
+
         this.playerImg = loadImg(assetFolder + "player_knuckles.png");
     }
 
