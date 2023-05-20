@@ -97,7 +97,7 @@ public class KeyHandler implements MouseListener, ActionListener {
 
             if (e.getSource() == game.gameView.saveBtn) {
                 game.getCurrLvl().setName(game.gameView.textAreaFile.getText());
-                game.getCurrLvl().saveLevel();
+                game.saveLevel();
                 return;
             }
             if (e.getSource() == game.gameView.loadBtn) {
@@ -135,6 +135,22 @@ public class KeyHandler implements MouseListener, ActionListener {
                 game.gameData.notifyObservers(Event.ZOOM_OUT);
                 System.out.println("Zoomed out");
             }
+            return;
+        }
+
+
+        if (e.getSource() == game.gameView.saveGame) {
+            game.saveGame();
+            return;
+        }
+
+        if (e.getSource() == game.gameView.loadGame) {
+            game.loadGame();
+            return;
+        }
+
+        if (e.getSource() == game.gameView.restartGame) {
+            game.restartGame();
             return;
         }
     }

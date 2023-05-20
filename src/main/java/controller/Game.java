@@ -14,8 +14,10 @@ import view.SoundView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -124,6 +126,39 @@ public class Game {
         System.out.println("game won!");
     }
 
+    public void saveLevel() {
+        saveLevel("");
+    }
+
+    public void saveLevel(String myPath) {
+        ObjectOutputStream dataOut = null;
+        String path = "../levels/custom/" + this.currentLevel.getName(); // default path
+
+        if (myPath != "") {
+            path = myPath;
+        }
+
+        try {
+            dataOut = new ObjectOutputStream(new FileOutputStream(path + ".dat"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            dataOut.writeObject(currentLevel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            dataOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Level saved!");
+    }
+
     public void loadLevel(String fileName, boolean isCustom) {
 
         String customPath = "";
@@ -135,7 +170,13 @@ public class Game {
         }
 
         ObjectInputStream in = null;
-        String fullPath = "../levels/" + customPath + fileName + ".dat";
+        String fullPath = "";
+        if (fileName == "SAVED_GAME") {
+            fullPath = "saved_game.dat";
+        } else {
+            fullPath = "../levels/" + customPath + fileName + ".dat";
+        }
+
         try {
             in = new ObjectInputStream(new FileInputStream(fullPath));
         } catch (IOException e) {
@@ -160,6 +201,22 @@ public class Game {
 
         gameData.notifyObservers(Event.LVL_LOADED);
         System.out.println("Level loaded!");
+    }
+
+    public void saveGame() {
+        if (isCustomLevel) {
+            System.out.println("Can't save game progress on custom levels");
+            return;
+        }
+        saveLevel("saved_game");
+    }
+
+    public void loadGame() {
+        loadLevel("SAVED_GAME", false);
+    }
+
+    public void restartGame() {
+        loadLevel("level1", false);
     }
 
     public void restartLevel() {

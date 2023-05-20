@@ -13,7 +13,6 @@ import model.Observer;
 
 public class SoundView implements Observer {
     private GameDataPublisher gameData;
-    private Block[][] blockGrid;
 
     // SOUND
     private GameView gameView;

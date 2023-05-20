@@ -78,27 +78,4 @@ public class Level implements Serializable {
         }
         return -1;
     }
-
-    public void saveLevel() {
-        ObjectOutputStream dataOut = null;
-        try {
-            dataOut = new ObjectOutputStream(new FileOutputStream("../levels/custom/" + this.levelName + ".dat"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            dataOut.writeObject(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            dataOut.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Level saved!");
-    }
 }

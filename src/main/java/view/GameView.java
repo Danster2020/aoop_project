@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,6 +39,11 @@ public class GameView implements Observer {
     public JButton loadBtn;
     public TextField textAreaFile;
     public JCheckBox checkBoxCustomLvl;
+
+    // Game Menu
+    public MenuItem restartGame;
+    public MenuItem saveGame;
+    public MenuItem loadGame;
 
     // Level Menu
     public MenuItem restartLevel;
@@ -116,12 +122,31 @@ public class GameView implements Observer {
         MenuBar menuBar = new MenuBar();
         jFrame.setMenuBar(menuBar);
 
+        // #GameMenu
+        Menu GameMenu = new Menu("Game");
+        menuBar.add(GameMenu);
+
+        // ##RestartGameItem
+        restartGame = new MenuItem("Restart game");
+        restartGame.addActionListener(kH);
+        GameMenu.add(restartGame);
+
+        // ##SaveGameItem
+        saveGame = new MenuItem("Save game");
+        saveGame.addActionListener(kH);
+        GameMenu.add(saveGame);
+
+        // ##LoadGameItem
+        loadGame = new MenuItem("Load game");
+        loadGame.addActionListener(kH);
+        GameMenu.add(loadGame);
+
         // #Levelmenu
         Menu levelMenu = new Menu("Level");
         menuBar.add(levelMenu);
 
         // ##RestartItem
-        restartLevel = new MenuItem("Restart (SPACE)");
+        restartLevel = new MenuItem("Restart (Space)");
         restartLevel.addActionListener(kH);
         levelMenu.add(restartLevel);
 
@@ -158,6 +183,7 @@ public class GameView implements Observer {
             JLabel textLabel = new JLabel("Name of level");
             checkBoxCustomLvl = new JCheckBox("Custom level");
 
+            editorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             editorFrame.setLayout(new GridBagLayout());
             GridBagConstraints gBC = new GridBagConstraints();
 
