@@ -54,12 +54,10 @@ public class Game {
         this.currentLevel = new Level("noname");
         this.gameData = new GameDataPublisher(this);
         this.isLevelComplete = false;
-
-        // this is a required observer to run the game
         this.gameView = new GameView(gameData);
-        gameData.registerObserver(this.gameView);
 
         // View observers
+        gameData.registerObserver(this.gameView);
         gameData.registerObserver(new TerminalView(gameData));
         gameData.registerObserver(new SoundView(gameData));
         // gameData.registerObserver(new WindowTextView(gameData));

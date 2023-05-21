@@ -62,7 +62,7 @@ public class GameDataPublisher implements Publisher {
         observers.remove(observer);
     }
 
-    // @Override
+    @Override
     public void notifyObservers(Event event) {
         for (Observer observer : observers) {
             observer.update(event);
