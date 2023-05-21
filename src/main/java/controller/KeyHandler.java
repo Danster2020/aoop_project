@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class KeyHandler implements MouseListener, ActionListener {
+public class KeyHandler implements ActionListener {
 
     public enum inputSignal {
         INPUT_UP,
@@ -28,9 +28,8 @@ public class KeyHandler implements MouseListener, ActionListener {
 
         this.game = view.game;
 
-        // NEW
-        // InputController inputController = new Mouse(view.jFrame, this);
         new Keyboard(view, this);
+        new Mouse(view, this);
     }
 
     // received signal from controller
@@ -56,38 +55,6 @@ public class KeyHandler implements MouseListener, ActionListener {
                 break;
         }
         game.checkGameState();
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // System.out.println("You clicked the mouse");
-        // System.out.println("x: " + e.getX() + " y: " + e.getY());
-
-        if (game.isLvlEditorOn()) {
-            int col = e.getX() / game.gameView.getBlockSize();
-            int row = e.getY() / game.gameView.getBlockSize();
-            System.out.println("col: " + col + " Row: " + row);
-            game.getCurrLvl().getBlock(col, row).ToggleBlock();
-            game.gameData.notifyObservers(Event.NOTHING);
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
     }
 
     @Override

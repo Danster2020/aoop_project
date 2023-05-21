@@ -29,7 +29,7 @@ public class GameView implements Observer {
     public JFrame jFrame;
     boolean isCustomLevel;
     private final int WIDTH, HEIGHT;
-    // public Sound sound;
+    public JLabel mouseLabel;
     private int blockSize;
     KeyHandler kH;
 
@@ -76,15 +76,16 @@ public class GameView implements Observer {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // exit app on close
         jFrame.setLocationRelativeTo(null);
 
+        // Label
+        mouseLabel = new JLabel();
+        mouseLabel.setSize(WIDTH, HEIGHT);
+
         // Init config
         BlockManager bM = new BlockManager(game);
         this.kH = new KeyHandler(this);
         menuBar();
 
-        // Label
-        JLabel mouseLabel = new JLabel();
-        mouseLabel.setSize(WIDTH, HEIGHT);
-        mouseLabel.addMouseListener(kH); // sets mouse coordinates to be relative to canvas area
+
 
         // Adds components
         jFrame.add(mouseLabel);

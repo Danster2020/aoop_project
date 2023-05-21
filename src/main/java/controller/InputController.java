@@ -6,8 +6,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import controller.Game.Direction;
+import model.Event;
+import model.Player;
 import view.GameView;
 
 public abstract class InputController {
@@ -69,37 +72,71 @@ class Keyboard extends InputController implements KeyListener {
 
 }
 
-// class Mouse extends InputController implements MouseListener {
+class Mouse extends InputController implements MouseListener {
 
-//     Mouse(GameView view, KeyHandler keyHandler) {
-//         super(view, keyHandler);
-//         frame.addMouseListener(this);
-//     }
+    Mouse(GameView view, KeyHandler keyHandler) {
+        super(view, keyHandler);
+        view.mouseLabel.addMouseListener(this);
+    }
 
-//     @Override
-//     public void mousePressed(MouseEvent e) {
-//         System.out.println("teststststststsstststststtssttsst");
-//         int col = e.getX() / 48;
-//         int row = e.getY() / 48;
-//         System.out.println("col: " + col + " Row: " + row);
-//         game.getCurrLvl().getBlock(col, row).ToggleBlock();
-//     }
+    @Override
+    public void mousePressed(MouseEvent e) {
 
-//     @Override
-//     public void mouseClicked(MouseEvent e) {
-//     }
+        int col = e.getX() / view.getBlockSize();
+        int row = e.getY() / view.getBlockSize();
+        System.out.println("col: " + col + " Row: " + row);
 
-//     @Override
-//     public void mouseReleased(MouseEvent e) {
-//     }
+        // LEVEL EDITOR
+        if (view.game.isLvlEditorOn()) {
+            view.game.getCurrLvl().getBlock(col, row).ToggleBlock();
+            view.game.gameData.notifyObservers(Event.NOTHING);
+            return;
+        }
 
-//     @Override
-//     public void mouseEntered(MouseEvent e) {
-//     }
+        Player player = view.game.getPlayer();
+        System.out.println("player col: " + player.getCol() + " Row: " + player.getRow());
 
-//     @Override
-//     public void mouseExited(MouseEvent e) {
-//     }
+        if (player.getCol() > col && player.getRow() == row) {
+            inputAction(KeyHandler.inputSignal.INPUT_LEFT);
+            return;
+        }
+
+        if (player.getCol() < col && player.getRow() == row) {
+            inputAction(KeyHandler.inputSignal.INPUT_RIGHT);
+            return;
+        }
+
+        if (player.getRow() > row && player.getCol() == col) {
+            inputAction(KeyHandler.inputSignal.INPUT_UP);
+            return;
+        }
+
+        if (player.getRow() < row && player.getCol() == col) {
+            inputAction(KeyHandler.inputSignal.INPUT_DOWN);
+            return;
+        }
+
+        if (SwingUtilities.isMiddleMouseButton(e)) {
+            inputAction(KeyHandler.inputSignal.INPUT_RESTART);
+            return;
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
 
     
-// }
+}

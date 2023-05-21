@@ -24,11 +24,12 @@
 // Color splash 	[Customer{bg:orange}]<>1->\*[Order{bg:green}]
 
 // [Game|+gameView;+gameData;+isLevelComplete|getCurrLvl();getPlayer();getGameName();getBoxes();isLvlEditorOn();setLvlEditorOn()]
-[Game]<-1..*[GameView]
-[Game]<-1[Level]
-[Game]<-[<<MovableObject>>]
-[Game]<-[GameDataPublisher]
+// [Game]<-1..*[GameView]
+[Game]<>-[Level]
+[Game]<>-[<<MovableObject>>]
+[Game]<>-[GameDataPublisher]
 
+[GameDataPublisher]^[GameView]
 [GameDataPublisher]^[TerminalView]
 [GameDataPublisher]^[WindowView]
 [GameDataPublisher]^[SoundView]

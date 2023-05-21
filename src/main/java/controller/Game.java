@@ -58,7 +58,7 @@ public class Game {
 
         // View observers
         gameData.registerObserver(this.gameView);
-        gameData.registerObserver(new TerminalView(gameData));
+        // gameData.registerObserver(new TerminalView(gameData));
         gameData.registerObserver(new SoundView(gameData));
         // gameData.registerObserver(new WindowTextView(gameData));
 
