@@ -16,7 +16,6 @@ public class BlockManager extends JComponent {
     Game game;
     BufferedImage tileImg, targetImg, wallImg, boxImg, BoxTargetImg, playerImg;
     String assetFolder = "../assets/";
-    BufferedImage[][] imgBlocks;
 
     public BlockManager(Game g) {
         this.game = g;
@@ -32,7 +31,6 @@ public class BlockManager extends JComponent {
         this.tileImg = loadImg(assetFolder + "blank.png");
         this.targetImg = loadImg(assetFolder + "blankmarked.png");
         this.wallImg = loadImg(assetFolder + "wall.png");
-
         this.playerImg = loadImg(assetFolder + "player_knuckles.png");
     }
 

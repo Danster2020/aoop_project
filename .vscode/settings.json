@@ -3,5 +3,8 @@
     "java.project.outputPath": "src/main/bin",
     "java.project.sourcePaths": [
         "src/main/java"
-    ]
+    ],
+    "java.test.config":{
+        "workingDirectory": "${workspaceFolder}/src/main/java"
+    }
 }

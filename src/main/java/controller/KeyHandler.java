@@ -105,7 +105,6 @@ public class KeyHandler implements ActionListener {
             return;
         }
 
-
         if (e.getSource() == game.gameView.saveGame) {
             game.saveGame();
             return;
