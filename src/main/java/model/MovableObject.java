@@ -1,10 +1,11 @@
 package model;
+
 import controller.Game;
 
 public abstract class MovableObject {
 
     private int objCol, objRow;// Player column and row
-    Game game;
+    private Game game;
 
     MovableObject(Game g) {
         this.game = g;
@@ -13,6 +14,10 @@ public abstract class MovableObject {
     public abstract void place(Block block);
 
     public abstract void remove(Block block);
+
+    public Game getGame() {
+        return game;
+    }
 
     public int getCol() {
         return objCol;
@@ -64,7 +69,7 @@ public abstract class MovableObject {
         remove(source);
         objCol = newCol;
         objRow = newRow;
-        game.gameData.notifyObservers(Event.NOTHING);
+        game.getGameData().notifyObservers(Event.NOTHING);
         return true;
     }
 
@@ -85,7 +90,7 @@ public abstract class MovableObject {
                 if (box.getCol() == game.getCurrLvl().getBlockCol(moveTo)
                         && box.getRow() == game.getCurrLvl().getBlockRow(moveTo)) {
                     System.out.println("hit");
-                    
+
                     if (!box.move(dir)) {
                         return true;
                     }

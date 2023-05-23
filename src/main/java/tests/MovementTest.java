@@ -12,8 +12,6 @@ import controller.Game.Direction;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Properties;
-
 public class MovementTest {
 
     Game game = new Game();
@@ -122,7 +120,7 @@ public class MovementTest {
         robot.keyPress(KeyEvent.VK_UP); // simulates a real key press
 
         Thread.sleep(200);
-        assertEquals("Level is not completed", true, game.isLevelComplete);
+        assertEquals("Level is not completed", true, game.isLevelComplete());
 
         // Should Progress to next level
         robot.keyPress(KeyEvent.VK_ENTER);

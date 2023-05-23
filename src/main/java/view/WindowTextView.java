@@ -5,16 +5,13 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-import model.Block;
 import model.GameDataPublisher;
 import model.Observer;
-import model.Publisher;
 
 public class WindowTextView implements Observer {
     private GameDataPublisher gameData;
-    private Block[][] blockGrid;
-    JFrame frame;
-    JTextArea text;
+    private JFrame frame;
+    private JTextArea text;
 
     public WindowTextView(GameDataPublisher gameData) {
         this.gameData = gameData;
@@ -30,7 +27,6 @@ public class WindowTextView implements Observer {
 
     @Override
     public void update(model.Event event) {
-        this.blockGrid = gameData.getLvlGrid();
         text.setText(gameData.lvlGridToString());
         frame.pack();
     }

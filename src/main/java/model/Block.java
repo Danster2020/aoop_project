@@ -1,4 +1,5 @@
 package model;
+
 import java.io.Serializable;
 
 public class Block implements Serializable {
@@ -187,6 +188,5 @@ public class Block implements Serializable {
             return;
         }
     }
-
 
 }

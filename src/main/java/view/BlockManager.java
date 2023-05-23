@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -13,9 +14,9 @@ import model.Block;
 
 public class BlockManager extends JComponent {
 
-    Game game;
-    BufferedImage tileImg, targetImg, wallImg, boxImg, BoxTargetImg, playerImg;
-    String assetFolder = "../assets/";
+    private Game game;
+    private BufferedImage tileImg, targetImg, wallImg, boxImg, BoxTargetImg, playerImg;
+    private String assetFolder = "../assets/";
 
     public BlockManager(Game g) {
         this.game = g;
@@ -52,13 +53,14 @@ public class BlockManager extends JComponent {
 
         for (int row = 0; row < game.getCurrLvl().getGridHeight(); row++) {
             for (int col = 0; col < game.getCurrLvl().getGridLength(); col++) {
-                newBlock(draw, col * game.gameView.getBlockSize(), row * game.gameView.getBlockSize(), paintBlock(col, row));
+                newBlock(draw, col * game.getGameView().getBlockSize(), row * game.getGameView().getBlockSize(),
+                        paintBlock(col, row));
             }
         }
     }
 
     public void newBlock(Graphics2D g2, int x, int y, BufferedImage image) {
-        g2.drawImage(image, x, y, game.gameView.getBlockSize(), game.gameView.getBlockSize(), null);
+        g2.drawImage(image, x, y, game.getGameView().getBlockSize(), game.getGameView().getBlockSize(), null);
     }
 
     public BufferedImage paintBlock(int col, int row) {
@@ -81,6 +83,9 @@ public class BlockManager extends JComponent {
         } else {
             return this.tileImg;
         }
+    }
 
+    public BufferedImage getBoxImg() {
+        return boxImg;
     }
 }

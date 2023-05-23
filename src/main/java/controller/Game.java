@@ -7,8 +7,6 @@ import model.GameDataPublisher;
 import model.Level;
 import model.Player;
 import view.TerminalView;
-import view.WindowTextView;
-import view.BlockManager;
 import view.GameView;
 import view.SoundView;
 
@@ -23,10 +21,9 @@ import java.util.Properties;
 
 public class Game {
 
-    final String GAMENAME;
+    private final String GAMENAME;
     private Level currentLevel;
-    boolean isCustomLevel;
-    KeyHandler kH;
+    private boolean isCustomLevel;
 
     private Player player;
     private ArrayList<Box> boxes;
@@ -34,9 +31,9 @@ public class Game {
     // Flags
     private boolean isLvlEditorOn;
 
-    public GameView gameView;
-    public GameDataPublisher gameData;
-    public boolean isLevelComplete;
+    private GameView gameView;
+    private GameDataPublisher gameData;
+    private boolean isLevelComplete;
 
     public enum Direction {
         UP,
@@ -58,7 +55,7 @@ public class Game {
 
         // View observers
         gameData.registerObserver(this.gameView);
-        // gameData.registerObserver(new TerminalView(gameData));
+        gameData.registerObserver(new TerminalView(gameData));
         gameData.registerObserver(new SoundView(gameData));
         // gameData.registerObserver(new WindowTextView(gameData));
 
@@ -83,8 +80,32 @@ public class Game {
         return boxes;
     }
 
+    public GameView getGameView() {
+        return gameView;
+    }
+
+    public GameDataPublisher getGameData() {
+        return gameData;
+    }
+
+    public void setIsCustomLevel(boolean status) {
+        this.isCustomLevel = status;
+    }
+
+    public boolean isCustomLevel() {
+        return isCustomLevel;
+    }
+
     public boolean isLvlEditorOn() {
         return isLvlEditorOn;
+    }
+
+    public boolean isLevelComplete() {
+        return isLevelComplete;
+    }
+
+    public void setIsLevelComplete(boolean status) {
+        this.isLevelComplete = status;
     }
 
     public void setLvlEditorOn(boolean status) {
@@ -195,7 +216,7 @@ public class Game {
         getPlayer().spawnPlayer();
         spawnBoxes();
 
-        gameView.jFrame.setTitle(GAMENAME + " - " + currentLevel.getName());
+        gameView.getjFrame().setTitle(GAMENAME + " - " + currentLevel.getName());
 
         gameData.notifyObservers(Event.LVL_LOADED);
         System.out.println("Level loaded!");

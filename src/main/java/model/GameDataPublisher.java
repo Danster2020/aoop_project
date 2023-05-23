@@ -6,20 +6,20 @@ import controller.Game;
 
 public class GameDataPublisher implements Publisher {
 
-    public Game game;
+    private Game game;
     private ArrayList<Observer> observers;
-
-    enum test {
-        PLAYER_MOVE
-    }
 
     public GameDataPublisher(Game g) {
         this.game = g;
         observers = new ArrayList<>();
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public Block[][] getLvlGrid() {
-        return game.getCurrLvl().blockGrid;
+        return game.getCurrLvl().getGrid();
     }
 
     public String lvlGridToString() {

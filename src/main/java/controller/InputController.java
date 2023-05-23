@@ -8,26 +8,33 @@ import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import controller.Game.Direction;
 import model.Event;
 import model.Player;
 import view.GameView;
 
 public abstract class InputController {
 
-    KeyHandler keyHandler;
-    GameView view;
-    JFrame frame;
+    private KeyHandler keyHandler;
+    private GameView view;
+    private JFrame frame;
 
     InputController(GameView view, KeyHandler keyHandler) {
         this.keyHandler = keyHandler;
         this.view = view;
-        this.frame = view.jFrame;
+        this.frame = view.getjFrame();
     }
 
     // movement
     public void inputAction(KeyHandler.inputSignal action) {
         keyHandler.controllerAction(action);
+    }
+
+    public GameView getView() {
+        return view;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
 }
@@ -36,7 +43,7 @@ class Keyboard extends InputController implements KeyListener {
 
     Keyboard(GameView view, KeyHandler keyHandler) {
         super(view, keyHandler);
-        frame.addKeyListener(this);
+        getFrame().addKeyListener(this);
     }
 
     @Override
@@ -76,24 +83,24 @@ class Mouse extends InputController implements MouseListener {
 
     Mouse(GameView view, KeyHandler keyHandler) {
         super(view, keyHandler);
-        view.mouseLabel.addMouseListener(this);
+        view.getMouseLabel().addMouseListener(this);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
 
-        int col = e.getX() / view.getBlockSize();
-        int row = e.getY() / view.getBlockSize();
+        int col = e.getX() / getView().getBlockSize();
+        int row = e.getY() / getView().getBlockSize();
         System.out.println("col: " + col + " Row: " + row);
 
         // LEVEL EDITOR
-        if (view.game.isLvlEditorOn()) {
-            view.game.getCurrLvl().getBlock(col, row).ToggleBlock();
-            view.game.gameData.notifyObservers(Event.NOTHING);
+        if (getView().getGame().isLvlEditorOn()) {
+            getView().getGame().getCurrLvl().getBlock(col, row).ToggleBlock();
+            getView().getGame().getGameData().notifyObservers(Event.NOTHING);
             return;
         }
 
-        Player player = view.game.getPlayer();
+        Player player = getView().getGame().getPlayer();
         System.out.println("player col: " + player.getCol() + " Row: " + player.getRow());
 
         if (player.getCol() > col && player.getRow() == row) {
@@ -138,5 +145,4 @@ class Mouse extends InputController implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    
 }

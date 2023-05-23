@@ -11,9 +11,9 @@ public class Box extends MovableObject {
     @Override
     public void place(Block block) {
         block.placeBox();
-        game.gameData.notifyObservers(Event.BOX_MOVED);
+        getGame().getGameData().notifyObservers(Event.BOX_MOVED);
         if (block.isTarget()) {
-            game.gameData.notifyObservers(Event.BOX_MOVED_ON_TARGET);
+            getGame().getGameData().notifyObservers(Event.BOX_MOVED_ON_TARGET);
         }
     }
 

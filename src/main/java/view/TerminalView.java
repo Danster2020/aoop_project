@@ -1,13 +1,10 @@
 package view;
 
-import model.Block;
 import model.GameDataPublisher;
 import model.Observer;
-import model.Publisher;
 
 public class TerminalView implements Observer {
     private GameDataPublisher gameData;
-    private Block[][] blockGrid;
 
     public TerminalView(GameDataPublisher gameData) {
         this.gameData = gameData;
@@ -15,7 +12,6 @@ public class TerminalView implements Observer {
 
     @Override
     public void update(model.Event event) {
-        this.blockGrid = gameData.getLvlGrid();
         printBlocks();
     }
 
@@ -23,5 +19,4 @@ public class TerminalView implements Observer {
 
         System.out.println(gameData.lvlGridToString());
     }
-
 }

@@ -7,7 +7,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import controller.Game;
-import model.Block;
 import model.Event;
 import model.GameDataPublisher;
 import model.Observer;
@@ -17,7 +16,6 @@ public class SoundView implements Observer {
 
     // SOUND
     private Game game;
-    private GameView gameView;
     private Clip clip;
     private Clip musicClip;
     private String playerWalked;
@@ -28,8 +26,7 @@ public class SoundView implements Observer {
 
     public SoundView(GameDataPublisher gameData) {
         this.gameData = gameData;
-        this.game = gameData.game;
-        this.gameView = gameData.game.gameView;
+        this.game = gameData.getGame();
 
         // SOUND
         playerWalked = "../assets/walk.wav";

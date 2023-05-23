@@ -1,14 +1,12 @@
 package model;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.io.Serializable;
 
 public class Level implements Serializable {
 
     private static final long serialVersionUID = 2L;
-    Block[][] blockGrid;
-    String levelName;
+    private Block[][] blockGrid;
+    private String levelName;
 
     public Level(String lvlName) {
 

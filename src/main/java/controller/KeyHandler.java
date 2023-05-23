@@ -1,15 +1,9 @@
 package controller;
 
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import model.Event;
 import view.GameView;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 public class KeyHandler implements ActionListener {
 
@@ -21,12 +15,11 @@ public class KeyHandler implements ActionListener {
         INPUT_RESTART,
     }
 
-    public boolean northPressed, southPressed, westPressed, eastPressed, buttonPressed;
-    public Game game;
+    private Game game;
 
     public KeyHandler(GameView view) {
 
-        this.game = view.game;
+        this.game = view.getGame();
 
         new Keyboard(view, this);
         new Mouse(view, this);
@@ -62,60 +55,60 @@ public class KeyHandler implements ActionListener {
 
         if (game.isLvlEditorOn()) {
 
-            if (e.getSource() == game.gameView.saveBtn) {
-                game.getCurrLvl().setName(game.gameView.textAreaFile.getText());
+            if (e.getSource() == game.getGameView().getSaveBtn()) {
+                game.getCurrLvl().setName(game.getGameView().getTextAreaFile().getText());
                 game.saveLevel();
                 return;
             }
-            if (e.getSource() == game.gameView.loadBtn) {
+            if (e.getSource() == game.getGameView().getLoadBtn()) {
 
-                if (game.gameView.checkBoxCustomLvl.isSelected()) {
-                    game.isCustomLevel = true;
+                if (game.getGameView().getCheckBoxCustomLvl().isSelected()) {
+                    game.setIsCustomLevel(true);
                 } else {
-                    game.isCustomLevel = false;
+                    game.setIsCustomLevel(false);
                 }
 
-                game.loadLevel(game.gameView.textAreaFile.getText(), game.isCustomLevel);
+                game.loadLevel(game.getGameView().getTextAreaFile().getText(), game.isCustomLevel());
                 return;
             }
         }
 
         // Menubar
-        if (e.getSource() == game.gameView.restartLevel) {
+        if (e.getSource() == game.getGameView().getRestartLevel()) {
             game.restartLevel();
             return;
         }
-        if (e.getSource() == game.gameView.startLvlEditor) {
-            game.gameView.startLevelEditor(!game.isLvlEditorOn());
+        if (e.getSource() == game.getGameView().getStartLvlEditor()) {
+            game.getGameView().startLevelEditor(!game.isLvlEditorOn());
             return;
         }
-        if (e.getSource() == game.gameView.zoomIn) {
-            game.gameView.setBlockSize(game.gameView.getBlockSize() + 16);
-            game.gameData.notifyObservers(Event.ZOOM_IN);
+        if (e.getSource() == game.getGameView().getZoomIn()) {
+            game.getGameView().setBlockSize(game.getGameView().getBlockSize() + 16);
+            game.getGameData().notifyObservers(Event.ZOOM_IN);
             System.out.println("Zoomed in");
             return;
         }
 
-        if (e.getSource() == game.gameView.zoomOut) {
-            if (game.gameView.getBlockSize() >= 32) {
-                game.gameView.setBlockSize(game.gameView.getBlockSize() - 8);
-                game.gameData.notifyObservers(Event.ZOOM_OUT);
+        if (e.getSource() == game.getGameView().getZoomOut()) {
+            if (game.getGameView().getBlockSize() >= 32) {
+                game.getGameView().setBlockSize(game.getGameView().getBlockSize() - 8);
+                game.getGameData().notifyObservers(Event.ZOOM_OUT);
                 System.out.println("Zoomed out");
             }
             return;
         }
 
-        if (e.getSource() == game.gameView.saveGame) {
+        if (e.getSource() == game.getGameView().getSaveGame()) {
             game.saveGame();
             return;
         }
 
-        if (e.getSource() == game.gameView.loadGame) {
+        if (e.getSource() == game.getGameView().getLoadGame()) {
             game.loadGame();
             return;
         }
 
-        if (e.getSource() == game.gameView.restartGame) {
+        if (e.getSource() == game.getGameView().getRestartGame()) {
             game.restartGame();
             return;
         }

@@ -1,11 +1,6 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,8 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-import org.w3c.dom.events.Event;
-
 import controller.Game;
 import controller.KeyHandler;
 import model.GameDataPublisher;
@@ -23,51 +16,41 @@ import model.Observer;
 
 public class GameView implements Observer {
 
-    public Game game;
-    GameDataPublisher gameData;
-    final String GAMENAME;
-    public JFrame jFrame;
-    boolean isCustomLevel;
+    private Game game;
+    private final String GAMENAME;
+    private JFrame jFrame;
     private final int WIDTH, HEIGHT;
-    public JLabel mouseLabel;
+    private JLabel mouseLabel;
     private int blockSize;
-    KeyHandler kH;
+    private KeyHandler kH;
 
     // Editor
-    JFrame editorFrame;
-    public JButton saveBtn;
-    public JButton loadBtn;
-    public TextField textAreaFile;
-    public JCheckBox checkBoxCustomLvl;
+    private JFrame editorFrame;
+    private JButton saveBtn;
+    private JButton loadBtn;
+    private TextField textAreaFile;
+    private JCheckBox checkBoxCustomLvl;
 
     // Game Menu
-    public MenuItem restartGame;
-    public MenuItem saveGame;
-    public MenuItem loadGame;
+    private MenuItem restartGame;
+    private MenuItem saveGame;
+    private MenuItem loadGame;
 
     // Level Menu
-    public MenuItem restartLevel;
-    public MenuItem startLvlEditor;
+    private MenuItem restartLevel;
+    private MenuItem startLvlEditor;
 
     // Zoom Menu
-    public MenuItem zoomIn;
-    public MenuItem zoomOut;
-
-    // Flags
-    private boolean isLvlEditorOn;
+    private MenuItem zoomIn;
+    private MenuItem zoomOut;
 
     public GameView(GameDataPublisher gameData) {
 
-        this.gameData = gameData;
-        this.game = gameData.game;
+        this.game = gameData.getGame();
         GAMENAME = "Sokoban";
         WIDTH = 992; // 30 blocks * 32 px = 960. added 32px to counter Windows 11 offset.
         HEIGHT = 704; // 20 blocks * 32 px = 640. added 64px to counter title length
         blockSize = 48;
-
-        // this.sound = new Sound(this);
-        this.isLvlEditorOn = false;
-        this.isCustomLevel = false;
 
         // Frame
         jFrame = new JFrame(GAMENAME);
@@ -85,18 +68,64 @@ public class GameView implements Observer {
         this.kH = new KeyHandler(this);
         menuBar();
 
-
-
         // Adds components
         jFrame.add(mouseLabel);
         jFrame.add(bM);
 
-        jFrame.setIconImage(bM.boxImg);
+        jFrame.setIconImage(bM.getBoxImg());
         jFrame.setVisible(true);
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public JButton getSaveBtn() {
+        return saveBtn;
+    }
+
+    public JButton getLoadBtn() {
+        return loadBtn;
+    }
+
+    public JLabel getMouseLabel() {
+        return mouseLabel;
+    }
+
+    public MenuItem getZoomIn() {
+        return zoomIn;
+    }
+
+    public MenuItem getZoomOut() {
+        return zoomOut;
+    }
+
+    public TextField getTextAreaFile() {
+        return textAreaFile;
+    }
+
+    public JFrame getjFrame() {
+        return jFrame;
     }
 
     public int getBlockSize() {
         return this.blockSize;
+    }
+
+    public MenuItem getRestartGame() {
+        return restartGame;
+    }
+
+    public MenuItem getSaveGame() {
+        return saveGame;
+    }
+
+    public MenuItem getLoadGame() {
+        return loadGame;
+    }
+
+    public MenuItem getRestartLevel() {
+        return restartLevel;
     }
 
     public void setBlockSize(int blockSize) {
@@ -109,6 +138,10 @@ public class GameView implements Observer {
 
     public int getHeight() {
         return this.HEIGHT;
+    }
+
+    public MenuItem getStartLvlEditor() {
+        return startLvlEditor;
     }
 
     public void updateView() {
@@ -237,11 +270,11 @@ public class GameView implements Observer {
 
     public void showGameWonPrompt() {
 
-        if (game.isLevelComplete) {
+        if (game.isLevelComplete()) {
             return;
         }
 
-        game.isLevelComplete = true;
+        game.setIsLevelComplete(true);
 
         JOptionPane.showMessageDialog(jFrame,
                 "You completed the level!",
@@ -253,8 +286,6 @@ public class GameView implements Observer {
         String nextLvl = "level" + (currLvlNr + 1);
         game.loadLevel(nextLvl, false);
     }
-
-
 
     @Override
     public void update(model.Event event) {
