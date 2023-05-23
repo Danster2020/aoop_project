@@ -22,6 +22,11 @@ public class Block implements Serializable {
     }
 
     /**
+     * Resets the block from all configs.
+     * 
+     * Makes sure that data is not retained when toggling between blocks in the
+     * level editor.
+     * 
      * @return void
      */
     public void clearBlock() {
@@ -129,6 +134,8 @@ public class Block implements Serializable {
     }
 
     /**
+     * Places the player on the block.
+     * 
      * Prevents overwriting of block(target)
      * 
      * @return void
@@ -142,7 +149,7 @@ public class Block implements Serializable {
     }
 
     /**
-     * Prevents overwriting of block(target)
+     * Places the box on the block.
      * 
      * @return void
      */
@@ -158,7 +165,9 @@ public class Block implements Serializable {
     }
 
     /**
-     * Toggles between blocks while in the level editor
+     * Toggles between blocks.
+     * 
+     * Used in the level editor.
      * 
      * @return void
      */

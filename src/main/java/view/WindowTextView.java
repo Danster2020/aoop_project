@@ -25,6 +25,9 @@ public class WindowTextView implements Observer {
         frame.setVisible(true);
     }
 
+    /**
+     * @param event
+     */
     @Override
     public void update(model.Event event) {
         text.setText(gameData.lvlGridToString());

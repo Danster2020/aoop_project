@@ -10,13 +10,18 @@ public class TerminalView implements Observer {
         this.gameData = gameData;
     }
 
+    /**
+     * @param event
+     */
     @Override
     public void update(model.Event event) {
         printBlocks();
     }
 
+    /**
+     * Prints the block grid to the terminal.
+     */
     public void printBlocks() {
-
         System.out.println(gameData.lvlGridToString());
     }
 }

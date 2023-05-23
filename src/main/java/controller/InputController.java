@@ -24,15 +24,26 @@ public abstract class InputController {
         this.frame = view.getjFrame();
     }
 
-    // movement
+    /**
+     * Handles actions from controllers, e.g Keyboard and sends them to the
+     * keyhandler.
+     * 
+     * @param action
+     */
     public void inputAction(KeyHandler.inputSignal action) {
         keyHandler.controllerAction(action);
     }
 
+    /**
+     * @return GameView
+     */
     public GameView getView() {
         return view;
     }
 
+    /**
+     * @return JFrame
+     */
     public JFrame getFrame() {
         return frame;
     }

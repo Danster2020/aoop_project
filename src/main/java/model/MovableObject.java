@@ -15,30 +15,56 @@ public abstract class MovableObject {
 
     public abstract void remove(Block block);
 
+    /**
+     * @return Game
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * @return int
+     */
     public int getCol() {
         return objCol;
     }
 
+    /**
+     * @return int
+     */
     public int getRow() {
         return objRow;
     }
 
+    /**
+     * @param objCol
+     */
     public void setCol(int objCol) {
         this.objCol = objCol;
     }
 
+    /**
+     * @param objRow
+     */
     public void setRow(int objRow) {
         this.objRow = objRow;
     }
 
+    /**
+     * @param col
+     * @param row
+     * @return Block
+     */
     public Block getBlock(int col, int row) {
         return game.getCurrLvl().getBlock(col, row);
     }
 
+    /**
+     * Moves the object in the specified direction.
+     * 
+     * @param dir
+     * @return if move was successful or not.
+     */
     // returns if move was successful or not
     public boolean move(Game.Direction dir) {
         Block source = getBlock(objCol, objRow);
@@ -73,6 +99,14 @@ public abstract class MovableObject {
         return true;
     }
 
+    /**
+     * Checks if there is a collision where the object wants to move to.
+     * 
+     * @param moveFrom
+     * @param moveTo
+     * @param dir
+     * @return If there is a collision or not.
+     */
     public Boolean ifCollision(Block moveFrom, Block moveTo, Game.Direction dir) {
 
         if (moveTo.isWall()) {

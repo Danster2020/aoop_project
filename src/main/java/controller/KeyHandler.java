@@ -25,7 +25,11 @@ public class KeyHandler implements ActionListener {
         new Mouse(view, this);
     }
 
-    // received signal from controller
+    /**
+     * Receives signal from controller and manipulates the game.
+     * 
+     * @param signal
+     */
     public void controllerAction(inputSignal signal) {
 
         switch (signal) {
@@ -50,6 +54,11 @@ public class KeyHandler implements ActionListener {
         game.checkGameState();
     }
 
+    /**
+     * Handels user interaction with buttons etc. on the jFrame.
+     * 
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

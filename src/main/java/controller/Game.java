@@ -64,54 +64,93 @@ public class Game {
         System.out.println("Game started!");
     }
 
+    /**
+     * @return Level
+     */
     public Level getCurrLvl() {
         return this.currentLevel;
     }
 
+    /**
+     * @return Player
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * @return String
+     */
     public String getGameName() {
         return GAMENAME;
     }
 
+    /**
+     * @return ArrayList<Box>
+     */
     public ArrayList<Box> getBoxes() {
         return boxes;
     }
 
+    /**
+     * @return GameView
+     */
     public GameView getGameView() {
         return gameView;
     }
 
+    /**
+     * @return GameDataPublisher
+     */
     public GameDataPublisher getGameData() {
         return gameData;
     }
 
+    /**
+     * @param status
+     */
     public void setIsCustomLevel(boolean status) {
         this.isCustomLevel = status;
     }
 
+    /**
+     * @return boolean
+     */
     public boolean isCustomLevel() {
         return isCustomLevel;
     }
 
+    /**
+     * @return boolean
+     */
     public boolean isLvlEditorOn() {
         return isLvlEditorOn;
     }
 
+    /**
+     * @return boolean
+     */
     public boolean isLevelComplete() {
         return isLevelComplete;
     }
 
+    /**
+     * @param status
+     */
     public void setIsLevelComplete(boolean status) {
         this.isLevelComplete = status;
     }
 
+    /**
+     * @param status
+     */
     public void setLvlEditorOn(boolean status) {
         this.isLvlEditorOn = status;
     }
 
+    /**
+     * Looks at map and spawns boxes logically.
+     */
     public void spawnBoxes() {
         boxes = new ArrayList<Box>();
         for (int row = 0; row < this.getCurrLvl().getGrid().length; row++) {
@@ -126,6 +165,9 @@ public class Game {
         }
     }
 
+    /**
+     * Check if the game has been won
+     */
     public void checkGameState() {
 
         if (isLvlEditorOn) {
@@ -145,10 +187,18 @@ public class Game {
         System.out.println("game won!");
     }
 
+    /**
+     * Saves the current level using {@link #saveLevel(String myPath)}.
+     */
     public void saveLevel() {
         saveLevel("");
     }
 
+    /**
+     * Saves the current level to the filesystem.
+     * 
+     * @param myPath
+     */
     public void saveLevel(String myPath) {
         ObjectOutputStream dataOut = null;
         String path = "../levels/custom/" + this.currentLevel.getName(); // default path
@@ -178,6 +228,12 @@ public class Game {
         System.out.println("Level saved!");
     }
 
+    /**
+     * Loads in a level from filesystem.
+     * 
+     * @param fileName
+     * @param isCustom
+     */
     public void loadLevel(String fileName, boolean isCustom) {
 
         String customPath = "";
@@ -222,6 +278,10 @@ public class Game {
         System.out.println("Level loaded!");
     }
 
+    /**
+     * Saves the current level into a save file. This is retained after closing the
+     * game.
+     */
     public void saveGame() {
         if (isCustomLevel) {
             System.out.println("Can't save game progress on custom levels");
@@ -230,19 +290,34 @@ public class Game {
         saveLevel("saved_game");
     }
 
+    /**
+     * Loads a saved game from the file system.
+     */
     public void loadGame() {
         loadLevel("SAVED_GAME", false);
     }
 
+    /**
+     * Restarts the whole game by loading in the first level.
+     */
     public void restartGame() {
         loadLevel("level1", false);
     }
 
+    /**
+     * Restarts the current level.
+     */
     public void restartLevel() {
         loadLevel(getCurrLvl().getName(), isCustomLevel);
         System.out.println("Level restarted!");
     }
 
+    /**
+     * Returns a specific key settings value saved in a config file.
+     * 
+     * @param key
+     * @return String
+     */
     public String getSetting(String key) {
         Properties prop = new Properties();
         String fileName = "settings.config";

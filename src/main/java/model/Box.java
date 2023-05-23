@@ -8,6 +8,11 @@ public class Box extends MovableObject {
         super(g);
     }
 
+    /**
+     * Places the box on the specified block.
+     * 
+     * @param block
+     */
     @Override
     public void place(Block block) {
         block.placeBox();
@@ -17,6 +22,11 @@ public class Box extends MovableObject {
         }
     }
 
+    /**
+     * Removes the box on the specified block.
+     * 
+     * @param block
+     */
     @Override
     public void remove(Block block) {
         block.removeBox();

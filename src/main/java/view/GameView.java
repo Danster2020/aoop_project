@@ -76,82 +76,137 @@ public class GameView implements Observer {
         jFrame.setVisible(true);
     }
 
+    /**
+     * @return Game
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * @return JButton
+     */
     public JButton getSaveBtn() {
         return saveBtn;
     }
 
+    /**
+     * @return JButton
+     */
     public JButton getLoadBtn() {
         return loadBtn;
     }
 
+    /**
+     * @return JLabel
+     */
     public JLabel getMouseLabel() {
         return mouseLabel;
     }
 
+    /**
+     * @return MenuItem
+     */
     public MenuItem getZoomIn() {
         return zoomIn;
     }
 
+    /**
+     * @return MenuItem
+     */
     public MenuItem getZoomOut() {
         return zoomOut;
     }
 
+    /**
+     * @return TextField
+     */
     public TextField getTextAreaFile() {
         return textAreaFile;
     }
 
+    /**
+     * @return JFrame
+     */
     public JFrame getjFrame() {
         return jFrame;
     }
 
+    /**
+     * @return int
+     */
     public int getBlockSize() {
         return this.blockSize;
     }
 
+    /**
+     * @return MenuItem
+     */
     public MenuItem getRestartGame() {
         return restartGame;
     }
 
+    /**
+     * @return MenuItem
+     */
     public MenuItem getSaveGame() {
         return saveGame;
     }
 
+    /**
+     * @return MenuItem
+     */
     public MenuItem getLoadGame() {
         return loadGame;
     }
 
+    /**
+     * @return MenuItem
+     */
     public MenuItem getRestartLevel() {
         return restartLevel;
     }
 
+    /**
+     * @param blockSize
+     */
     public void setBlockSize(int blockSize) {
         this.blockSize = blockSize;
     }
 
+    /**
+     * @return int
+     */
     public int getWidth() {
         return this.WIDTH;
     }
 
+    /**
+     * @return int
+     */
     public int getHeight() {
         return this.HEIGHT;
     }
 
+    /**
+     * @return MenuItem
+     */
     public MenuItem getStartLvlEditor() {
         return startLvlEditor;
     }
 
-    public void updateView() {
-        jFrame.repaint();
-    }
-
+    /**
+     * @return JCheckBox
+     */
     public JCheckBox getCheckBoxCustomLvl() {
         return checkBoxCustomLvl;
     }
 
+    /**
+     * Activates the menu bar.
+     * 
+     * @return JCheckBox
+     */
     public void menuBar() {
         MenuBar menuBar = new MenuBar();
         jFrame.setMenuBar(menuBar);
@@ -204,6 +259,11 @@ public class GameView implements Observer {
         zoomMenu.add(zoomOut);
     }
 
+    /**
+     * Starts the level editor.
+     * 
+     * @param status
+     */
     public void startLevelEditor(boolean status) {
         // Editor window
 
@@ -268,6 +328,9 @@ public class GameView implements Observer {
 
     }
 
+    /**
+     * Shows the prompt for when a level has been completed for the user.
+     */
     public void showGameWonPrompt() {
 
         if (game.isLevelComplete()) {
@@ -287,6 +350,9 @@ public class GameView implements Observer {
         game.loadLevel(nextLvl, false);
     }
 
+    /**
+     * @param event
+     */
     @Override
     public void update(model.Event event) {
         jFrame.repaint();

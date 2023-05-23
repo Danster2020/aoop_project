@@ -12,7 +12,6 @@ import model.GameDataPublisher;
 import model.Observer;
 
 public class SoundView implements Observer {
-    private GameDataPublisher gameData;
 
     // SOUND
     private Game game;
@@ -25,7 +24,6 @@ public class SoundView implements Observer {
     private String bg_music;
 
     public SoundView(GameDataPublisher gameData) {
-        this.gameData = gameData;
         this.game = gameData.getGame();
 
         // SOUND
@@ -42,11 +40,11 @@ public class SoundView implements Observer {
 
     }
 
-    public void printBlocks() {
-
-        System.out.println(gameData.lvlGridToString());
-    }
-
+    /**
+     * Sets the sound effect file.
+     * 
+     * @param soundName
+     */
     public void setFile(String soundName) {
 
         try {
@@ -60,6 +58,11 @@ public class SoundView implements Observer {
         }
     }
 
+    /**
+     * Sets the background music file.
+     * 
+     * @param soundName
+     */
     public void setMusicFile(String soundName) {
 
         try {
@@ -73,11 +76,22 @@ public class SoundView implements Observer {
         }
     }
 
+    /**
+     * Plays a sound effect.
+     * 
+     * @param soundName
+     */
     public void playSE(String soundName) {
         setFile(soundName);
         clip.start();
     }
 
+    /**
+     * Plays a bakground music track.
+     * 
+     * @param musicName
+     * @param loop      If it should play continously or not.
+     */
     public void playMusic(String musicName, boolean loop) {
         setMusicFile(musicName);
 
@@ -92,15 +106,33 @@ public class SoundView implements Observer {
         }
     }
 
+    /**
+     * Plays specified music track continously.
+     * 
+     * Is linked with the {@link #playMusic(String musicName, boolean loop)} method.
+     * 
+     * @param musicName
+     */
     public void playMusic(String musicName) {
         playMusic(musicName, true);
     }
 
-    // default music
+    /**
+     * Plays the default music track continously.
+     * 
+     * Is linked with the {@link #playMusic(String musicName, boolean loop)} method.
+     * 
+     * @param musicName
+     */
     public void playMusic() {
         playMusic(bg_music, true);
     }
 
+    /**
+     * Stops the current music track if there is any.
+     * 
+     * @param musicName
+     */
     public void stopMusic() {
         if (musicClip != null) {
             musicClip.setFramePosition(0);
@@ -109,6 +141,9 @@ public class SoundView implements Observer {
 
     }
 
+    /**
+     * @param event
+     */
     @Override
     public void update(Event event) {
 

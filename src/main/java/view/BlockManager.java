@@ -35,6 +35,12 @@ public class BlockManager extends JComponent {
         this.playerImg = loadImg(assetFolder + "player_knuckles.png");
     }
 
+    /**
+     * Loads image asset into memory.
+     * 
+     * @param path
+     * @return BufferedImage
+     */
     public BufferedImage loadImg(String path) {
         BufferedImage loadedImg = null;
         try {
@@ -45,6 +51,11 @@ public class BlockManager extends JComponent {
         return loadedImg;
     }
 
+    /**
+     * Paints all the blocks onto the jframe.
+     * 
+     * @param g
+     */
     @Override
     public void paintComponent(Graphics g) {
 
@@ -59,10 +70,25 @@ public class BlockManager extends JComponent {
         }
     }
 
+    /**
+     * Draws the image on screen.
+     * 
+     * @param g2
+     * @param x
+     * @param y
+     * @param image
+     */
     public void newBlock(Graphics2D g2, int x, int y, BufferedImage image) {
         g2.drawImage(image, x, y, game.getGameView().getBlockSize(), game.getGameView().getBlockSize(), null);
     }
 
+    /**
+     * Paints a specified block.
+     * 
+     * @param col
+     * @param row
+     * @return BufferedImage
+     */
     public BufferedImage paintBlock(int col, int row) {
         Block block = game.getCurrLvl().getBlock(col, row);
 
@@ -85,6 +111,9 @@ public class BlockManager extends JComponent {
         }
     }
 
+    /**
+     * @return BufferedImage
+     */
     public BufferedImage getBoxImg() {
         return boxImg;
     }

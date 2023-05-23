@@ -14,14 +14,26 @@ public class GameDataPublisher implements Publisher {
         observers = new ArrayList<>();
     }
 
+    /**
+     * @return Game
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * @return Block[][]
+     */
     public Block[][] getLvlGrid() {
         return game.getCurrLvl().getGrid();
     }
 
+    /**
+     * Represents the grid in a string format. Every symbol is decided by the type
+     * of block.
+     * 
+     * @return String
+     */
     public String lvlGridToString() {
         String outputString = "[\n";
 
@@ -52,16 +64,25 @@ public class GameDataPublisher implements Publisher {
         return outputString;
     }
 
+    /**
+     * @param observer
+     */
     @Override
     public void registerObserver(Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * @param observer
+     */
     @Override
     public void unregisterObserver(Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * @param event
+     */
     @Override
     public void notifyObservers(Event event) {
         for (Observer observer : observers) {
