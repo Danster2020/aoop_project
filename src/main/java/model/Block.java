@@ -27,7 +27,6 @@ public class Block implements Serializable {
      * Makes sure that data is not retained when toggling between blocks in the
      * level editor.
      * 
-     * @return void
      */
     public void clearBlock() {
         this.isWall = false;
@@ -83,7 +82,6 @@ public class Block implements Serializable {
     }
 
     /**
-     * @return void
      */
     public void setWall() {
         clearBlock();
@@ -91,7 +89,6 @@ public class Block implements Serializable {
     }
 
     /**
-     * @return void
      */
     public void setTile() {
         clearBlock();
@@ -99,7 +96,6 @@ public class Block implements Serializable {
     }
 
     /**
-     * @return void
      */
     public void setTarget() {
         clearBlock();
@@ -107,7 +103,6 @@ public class Block implements Serializable {
     }
 
     /**
-     * @return void
      */
     public void setPlayer() {
         clearBlock();
@@ -116,7 +111,6 @@ public class Block implements Serializable {
     }
 
     /**
-     * @return void
      */
     public void setBox() {
         clearBlock();
@@ -125,7 +119,6 @@ public class Block implements Serializable {
     }
 
     /**
-     * @return void
      */
     public void setTargetBox() {
         clearBlock();
@@ -138,7 +131,6 @@ public class Block implements Serializable {
      * 
      * Prevents overwriting of block(target)
      * 
-     * @return void
      */
     public void placePlayer() {
         hasPlayer = true;
@@ -151,14 +143,12 @@ public class Block implements Serializable {
     /**
      * Places the box on the block.
      * 
-     * @return void
      */
     public void placeBox() {
         hasBox = true;
     }
 
     /**
-     * @return void
      */
     public void removeBox() {
         hasBox = false;
@@ -169,7 +159,6 @@ public class Block implements Serializable {
      * 
      * Used in the level editor.
      * 
-     * @return void
      */
     public void ToggleBlock() {
         if (hasPlayer) {

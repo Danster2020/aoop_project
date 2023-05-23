@@ -204,8 +204,6 @@ public class GameView implements Observer {
 
     /**
      * Activates the menu bar.
-     * 
-     * @return JCheckBox
      */
     public void menuBar() {
         MenuBar menuBar = new MenuBar();

@@ -122,7 +122,6 @@ public class SoundView implements Observer {
      * 
      * Is linked with the {@link #playMusic(String musicName, boolean loop)} method.
      * 
-     * @param musicName
      */
     public void playMusic() {
         playMusic(bg_music, true);
@@ -131,7 +130,6 @@ public class SoundView implements Observer {
     /**
      * Stops the current music track if there is any.
      * 
-     * @param musicName
      */
     public void stopMusic() {
         if (musicClip != null) {

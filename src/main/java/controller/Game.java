@@ -86,7 +86,7 @@ public class Game {
     }
 
     /**
-     * @return ArrayList<Box>
+     * @return ArrayList
      */
     public ArrayList<Box> getBoxes() {
         return boxes;
