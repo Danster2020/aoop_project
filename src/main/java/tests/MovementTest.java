@@ -30,24 +30,28 @@ public class MovementTest {
     public void moveUp() {
         game.getPlayer().move(Direction.UP);
         assertEquals("Player in wrong position", true, game.getCurrLvl().getBlock(2, 2).hasPlayer());
+        assertEquals("Player was not removed from old position", false, game.getCurrLvl().getBlock(2, 3).hasPlayer());
     }
 
     @Test
     public void moveDown() {
         game.getPlayer().move(Direction.DOWN);
         assertEquals("Player in wrong position", true, game.getCurrLvl().getBlock(2, 4).hasPlayer());
+        assertEquals("Player was not removed from old position", false, game.getCurrLvl().getBlock(2, 3).hasPlayer());
     }
 
     @Test
     public void moveLeft() {
         game.getPlayer().move(Direction.LEFT);
         assertEquals("Player in wrong position", true, game.getCurrLvl().getBlock(1, 3).hasPlayer());
+        assertEquals("Player was not removed from old position", false, game.getCurrLvl().getBlock(2, 3).hasPlayer());
     }
 
     @Test
     public void moveRight() {
         game.getPlayer().move(Direction.RIGHT);
         assertEquals("Player in wrong position", true, game.getCurrLvl().getBlock(3, 3).hasPlayer());
+        assertEquals("Player was not removed from old position", false, game.getCurrLvl().getBlock(2, 3).hasPlayer());
     }
 
     @Test
@@ -60,22 +64,6 @@ public class MovementTest {
 
         // player should not be inside wall
         assertEquals("Player inside wall", false, game.getCurrLvl().getBlock(0, 3).hasPlayer());
-    }
-
-    @Test
-    public void boxPlacedOnTarget() {
-        game.getPlayer().move(Direction.RIGHT);
-        game.getPlayer().move(Direction.RIGHT);
-
-        // player should have pushed box
-        assertEquals("Player was blocked by box", true, game.getCurrLvl().getBlock(4, 3).hasPlayer());
-
-        // box should have moved
-        assertEquals("Box didn't move", true, game.getCurrLvl().getBlock(5, 3).hasBox());
-
-        // box should have converted to targetBox
-        assertEquals("Block is not a traget box", true,
-                game.getCurrLvl().getBlock(5, 3).hasTargetBox());
     }
 
     @Test
@@ -107,6 +95,22 @@ public class MovementTest {
     }
 
     @Test
+    public void boxPlacedOnTarget() {
+        game.getPlayer().move(Direction.RIGHT);
+        game.getPlayer().move(Direction.RIGHT);
+
+        // player should have pushed box
+        assertEquals("Player was blocked by box", true, game.getCurrLvl().getBlock(4, 3).hasPlayer());
+
+        // box should have moved
+        assertEquals("Box didn't move", true, game.getCurrLvl().getBlock(5, 3).hasBox());
+
+        // box should have converted to targetBox
+        assertEquals("Block is not a target box", true,
+                game.getCurrLvl().getBlock(5, 3).hasTargetBox());
+    }
+
+    @Test
     public void levelComplete() throws InterruptedException {
         Robot robot = null;
         try {
@@ -119,12 +123,12 @@ public class MovementTest {
         game.getPlayer().move(Direction.RIGHT);
         robot.keyPress(KeyEvent.VK_UP); // simulates a real key press
 
-        Thread.sleep(200);
+        Thread.sleep(1000);
         assertEquals("Level is not completed", true, game.isLevelComplete());
 
         // Should Progress to next level
         robot.keyPress(KeyEvent.VK_ENTER);
-        Thread.sleep(200);
+        Thread.sleep(1000);
         assertEquals("Did not progress to next level", "level2", game.getCurrLvl().getName());
     }
 

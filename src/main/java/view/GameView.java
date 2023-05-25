@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import controller.Game;
+import controller.GameDataPublisher;
 import controller.KeyHandler;
-import model.GameDataPublisher;
 import model.Observer;
 
 public class GameView implements Observer {

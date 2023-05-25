@@ -3,7 +3,10 @@
 ### This game was created as a part of the course Advanced Object Oriented Programming at Halmstad University.
 
 
-#### Notes
-to run, use:
-`java main`
-in src/main/bin
+#### How to run the game
+1. rebuild the project
+2. go into src/main/bin
+3. run `java main` in console
+
+#### Development
+Source code is in src/main/java.

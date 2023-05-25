@@ -1,6 +1,6 @@
 package view;
 
-import model.GameDataPublisher;
+import controller.GameDataPublisher;
 import model.Observer;
 
 public class TerminalView implements Observer {

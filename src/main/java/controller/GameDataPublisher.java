@@ -1,8 +1,11 @@
-package model;
+package controller;
 
 import java.util.ArrayList;
 
-import controller.Game;
+import model.Block;
+import model.Event;
+import model.Observer;
+import model.Publisher;
 
 public class GameDataPublisher implements Publisher {
 

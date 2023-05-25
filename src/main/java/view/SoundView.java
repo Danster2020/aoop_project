@@ -7,8 +7,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import controller.Game;
+import controller.GameDataPublisher;
 import model.Event;
-import model.GameDataPublisher;
 import model.Observer;
 
 public class SoundView implements Observer {

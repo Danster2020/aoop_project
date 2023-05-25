@@ -5,7 +5,7 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-import model.GameDataPublisher;
+import controller.GameDataPublisher;
 import model.Observer;
 
 public class WindowTextView implements Observer {
